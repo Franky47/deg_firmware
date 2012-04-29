@@ -44,13 +44,13 @@ EnvelopeGenerator::EnvelopeGenerator()
  Control
  ==============================================================================*/
 
-void gateOn()
+void EnvelopeGenerator::gateOn()
 {
     
 }
 
 
-void gateOff()
+void EnvelopeGenerator::gateOff()
 {
     
 }
@@ -60,25 +60,25 @@ void gateOff()
  Settings
  ==============================================================================*/
 
-void setAttack(int inValue)
+void EnvelopeGenerator::setAttack(int inValue)
 {
     
 }
 
 
-void setDecay(int inValue)
+void EnvelopeGenerator::setDecay(int inValue)
 {
     
 }
 
 
-void setSustain(int inValue)
+void EnvelopeGenerator::setSustain(int inValue)
 {
     
 }
 
 
-void setRelease(int inValue)
+void EnvelopeGenerator::setRelease(int inValue)
 {
     
 }

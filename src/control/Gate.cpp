@@ -23,6 +23,7 @@
 
 #include "Gate.h"
 #include "PinMapping.h"
+#include "Globs.h"
 
 /*==============================================================================
  Initialisation
@@ -115,7 +116,8 @@ void Gate::toggle()
 void Gate::handleGateOn()
 {
     
-    
+    gEnvA.gateOn();
+    gEnvB.gateOn();
     
 }
 
@@ -123,7 +125,8 @@ void Gate::handleGateOn()
 void Gate::handleGateOff()
 {
     
-    
+    gEnvA.gateOff();
+    gEnvB.gateOff();
     
 }
 

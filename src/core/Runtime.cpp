@@ -137,11 +137,6 @@ void loop()
 {
 	
 	// ------------------------------------------------------------------
-	// Create and initialise variables
-	
-	
-	
-	// ------------------------------------------------------------------
 	// Read SPI input
 	{	
 		
@@ -153,6 +148,20 @@ void loop()
 		
 	}
 	
-	
+    
+    // ------------------------------------------------------------------
+	// Asynchronous processing
+	{
+        
+#if !(COMPFLAG_SYNCHRONOUS)
+        
+        gEnvA.doProcess();
+        
+        gEnvB.doProcess();
+        
+#endif
+        
+	}
+    
 }
 

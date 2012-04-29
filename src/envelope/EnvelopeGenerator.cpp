@@ -111,7 +111,11 @@ void EnvelopeGenerator::tick()
         
     }
     
+#if COMPFLAG_SYNCHRONOUS
+    
     doProcess();
+    
+#endif
     
 }
 

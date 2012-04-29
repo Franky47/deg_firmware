@@ -34,6 +34,7 @@
 #define COMPFLAG_POLARITY       1   // Add setting to generate inverted envelope.
 #define	COMPFLAG_DEBUG			0	// Serial line for debug (available only on 644P).
 
+#define COMPFLAG_SYNCHRONOUS    0
 
 #define GATE_POLARITY           1   // 1 means high level = Gate On, 0 means low level = Gate On.
 

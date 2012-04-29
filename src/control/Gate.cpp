@@ -1,10 +1,10 @@
 /*!
- *  @file		Gate.cpp
- *  Project		DEG
- *	@brief		Gate handling
- *  @author		Francois Best 
- *	@date		29/04/12
- *  @license	CC-BY-NC-SA Forty Seven Effects - 2012
+ *  @file       Gate.cpp
+ *  Project     DEG
+ *  @brief      Gate handling
+ *  @author     Francois Best 
+ *  @date       29/04/12
+ *  @license    CC-BY-NC-SA Forty Seven Effects - 2012
  *
  * THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS 
  * OF THIS CREATIVE COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE").

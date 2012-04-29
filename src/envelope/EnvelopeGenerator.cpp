@@ -1,10 +1,10 @@
 /*!
- *  @file		EnvelopeGenerator.cpp
- *  Project		DEG
- *	@brief		Envelope generation algorithm
- *  @author		Francois Best 
- *	@date		29/04/12
- *  @license	CC-BY-NC-SA Forty Seven Effects - 2012
+ *  @file       EnvelopeGenerator.cpp
+ *  Project     DEG
+ *  @brief      Envelope generation algorithm
+ *  @author     Francois Best 
+ *  @date       29/04/12
+ *  @license    CC-BY-NC-SA Forty Seven Effects - 2012
  *
  * THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS 
  * OF THIS CREATIVE COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE").

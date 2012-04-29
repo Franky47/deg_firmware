@@ -1,10 +1,10 @@
 /*!
- *  @file		fassert.h
- *  Project		DEG
- *	@brief		Assertion macros for embedded systems
- *  @author		Francois Best 
- *	@date		27/12/11
- *  @license	CC-BY-NC-SA Forty Seven Effects - 2012
+ *  @file       fassert.h
+ *  Project     DEG
+ *  @brief      Assertion macros for embedded systems
+ *  @author     Francois Best 
+ *  @date       29/04/12
+ *  @license    CC-BY-NC-SA Forty Seven Effects - 2012
  *
  * THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS 
  * OF THIS CREATIVE COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE").

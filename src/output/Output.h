@@ -1,10 +1,10 @@
 /*!
- *  @file		Output.h
- *  Project		DEG
- *	@brief		PWM output module
- *  @author		Francois Best 
- *	@date		29/04/12
- *  @license	CC-BY-NC-SA Forty Seven Effects - 2012
+ *  @file       Output.h
+ *  Project     DEG
+ *  @brief      PWM output module
+ *  @author     Francois Best 
+ *  @date       29/04/12
+ *  @license    CC-BY-NC-SA Forty Seven Effects - 2012
  *
  * THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS 
  * OF THIS CREATIVE COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE").

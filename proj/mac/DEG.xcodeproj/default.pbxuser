@@ -1,0 +1,40 @@
+// !$*UTF8*$!
+{
+	31725B1F11B645C6001557C8 /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeTarget = 31725BA211B646A0001557C8 /* Build */;
+		codeSenseManager = 31E0B760131A72B100D8E650 /* Code sense */;
+		perUserDictionary = {
+			PBXPerProjectTemplateStateSaveDate = 320500381;
+			PBXWorkspaceStateSaveDate = 320500381;
+		};
+		sourceControlManager = 31E0B75F131A72B100D8E650 /* Source Control */;
+		userBuildSettings = {
+			OBJROOT = "$(SYMROOT)";
+			SYMROOT = ../../build;
+		};
+	};
+	31725BA211B646A0001557C8 /* Build */ = {
+		activeExec = 0;
+	};
+	31DD6BAC11BA747F00FF05DB /* Upload */ = {
+		activeExec = 0;
+	};
+	31E0B741131A6A8A00D8E650 /* Clean */ = {
+		activeExec = 0;
+	};
+	31E0B75F131A72B100D8E650 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	31E0B760131A72B100D8E650 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+}

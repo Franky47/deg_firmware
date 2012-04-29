@@ -22,29 +22,58 @@
 
 
 #include "Clock.h"
+#include "Globs.h"
+#include "ConfFile.h"
 
 /*==============================================================================
  Initialisation
  ==============================================================================*/
 
+const byte Clock::mSampleTime = 4;  // Time in microseconds between two ticks.
+
+
+Clock::Clock()
+    : mIsRunning(false)
+    , mMicrosecondsCounter(0)
+{
+    
+}
+
+
 void Clock::configure()
 {
     
-    
+    TCCR1B = (1 << CS11) | (1 << CS10);     // Prescale: clk/64 = 250 KHz (4us)
     
 }
 
 
-/*==============================================================================
- Interrupt callbacks
- ==============================================================================*/
+/*==========================================================================
+ Time measurement
+ ==========================================================================*/
 
-/*! \brief Interupt callback called when timer overflows
- 
- */
-void Clock::tick()
+void Clock::reset()
 {
     
-    
+    mMicrosecondsCounter = 0;
     
 }
+
+
+void Clock::start()
+{
+    
+    mIsRunning = true;
+    
+}
+
+
+void Clock::stop()
+{
+    
+    mIsRunning = false;
+    
+    reset();
+    
+}
+

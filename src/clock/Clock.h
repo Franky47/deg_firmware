@@ -24,22 +24,52 @@
 #ifndef CLOCK_H_
 #define CLOCK_H_
 
-namespace Clock 
+#include "Types.h"
+
+class Clock 
 {
+    
+public:
     
     /*==========================================================================
      Initialisation
      ==========================================================================*/
     
-    void configure();
+    Clock();
     
+    static void configure();
+
     
     /*==========================================================================
      Interrupt callbacks
      ==========================================================================*/
     
-    void tick();
+    virtual void tick() = 0;
     
-}
+protected:
+    
+    /*==========================================================================
+     Time measurement
+     ==========================================================================*/
+    
+    void reset();
+    
+    void start();
+    
+    void stop();
+    
+    uint32_t getTime()
+    {
+        return mMicrosecondsCounter;
+    }
+    
+    bool                                        mIsRunning;
+    
+    uint32_t                                    mMicrosecondsCounter;
+    
+    static const byte                           mSampleTime;
+    
+    
+};
 
 #endif // CLOCK_H_

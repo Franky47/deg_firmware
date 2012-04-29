@@ -21,6 +21,27 @@
  */
 
 #include "EnvelopeGenerator.h"
+#include "fassert.h"
+#include "Clock.h"
+
+#define slow_min_attack     1000
+#define slow_min_decay      1000
+#define slow_min_release    1000
+
+#define fast_min_attack     100
+#define fast_min_decay      100
+#define fast_min_release    100
+
+#define slow_max_attack     10000000
+#define slow_max_decay      10000000
+#define slow_max_release    10000000
+
+#define fast_max_attack     1000000
+#define fast_max_decay      1000000
+#define fast_max_release    1000000
+
+#define min_sustain         0
+#define max_sustain         16383
 
 
 
@@ -30,11 +51,16 @@
 
 /*! \brief Default constructor. */
 EnvelopeGenerator::EnvelopeGenerator() 
-    : mCurrentState(Idle)
-    , mAttackTime(0)
-    , mDecayTime(0)
-    , mSustainLevel(16383)
-    , mReleaseTime(0)
+    : Clock()
+    , mCurrentState(Idle)
+    , mAttackTime(slow_min_attack)
+    , mDecayTime(slow_min_decay)
+    , mSustainLevel(max_sustain)
+    , mReleaseTime(slow_min_release)
+    , mPositivePolarity(true)
+    , mFast(false)
+    , mShape(Linear)
+    , mEnvelopeLevel(0)
 {
 	
 }
@@ -47,38 +73,212 @@ EnvelopeGenerator::EnvelopeGenerator()
 void EnvelopeGenerator::gateOn()
 {
     
+    mCurrentState = Attack;
+    
+    mGateState = true;
+    
+    reset();
+    
 }
 
 
 void EnvelopeGenerator::gateOff()
 {
     
+    if (mCurrentState != Attack) {
+      
+        mCurrentState = Release;
+        
+        reset();
+        
+    }
+    // else:
+    // If Gate goes off when still in Attack:
+    // - Keep Attack going up to the end
+    // - Go to release state after that.
+    
+    mGateState = false;
+    
+}
+
+
+void EnvelopeGenerator::tick()
+{
+    
+    if (mIsRunning) {
+    
+        mMicrosecondsCounter += mSampleTime;
+        
+    }
+    
+    doProcess();
+    
 }
 
 
 /*==============================================================================
- Settings
+ Algorithm
  ==============================================================================*/
 
-void EnvelopeGenerator::setAttack(int inValue)
+void EnvelopeGenerator::doProcess()
 {
+  
+    if (mCurrentState == Idle ||
+        mCurrentState == Sustain) 
+    {
+        
+        // Nothing to do.
+        return;
+        
+    }
+    
+    if (mCurrentState == Attack) {
+        
+        processAttack();
+        
+    }
+    else if (mCurrentState == Decay) {
+        
+        processDecay();
+        
+    }
+    else if (mCurrentState == Release) {
+        
+        processRelease();
+        
+    }
+    else {
+        
+        // Error
+        fassertfalse;
+        
+    }
     
 }
 
 
-void EnvelopeGenerator::setDecay(int inValue)
+void EnvelopeGenerator::processAttack()
 {
+    
+    const uint32_t remaining_time = mAttackTime - getTime();
+    
+    if (mShape == Linear) {
+        
+        
+        
+    }
+    else if (mShape == Exponential) {
+        
+        
+        
+    }
+    else {
+        
+        // \todo: Logarithmic response
+        
+    }
+    
+    if (remaining_time - mSampleTime <= 0) {
+        
+        // End of attack phase
+        
+        if (mGateState == true) {
+            
+            mCurrentState = Decay;
+            
+        }
+        else {
+            
+            // Gate removed before end of attack
+            // Go to release state directly.
+            mCurrentState = Release;
+            
+        }
+        
+        reset();
+        
+    }
     
 }
 
 
-void EnvelopeGenerator::setSustain(int inValue)
+void EnvelopeGenerator::processDecay()
 {
+    
+    const uint32_t remaining_time = mDecayTime - getTime();
+    
+    if (mShape == Linear) {
+        
+        
+        
+    }
+    else if (mShape == Exponential) {
+        
+        
+        
+    }
+    else {
+        
+        // \todo: Logarithmic response
+        
+    }
+    
+    if (remaining_time - mSampleTime <= 0) {
+        
+        // End of decay phase
+        
+        if (mGateState == true) {
+            
+            mCurrentState = Sustain;
+            
+            stop();
+            
+        }
+        else {
+            
+            // Gate removed before end of decay
+            // Go to release state directly.
+            mCurrentState = Release;
+            
+            reset();
+            
+        }
+        
+    }
     
 }
 
 
-void EnvelopeGenerator::setRelease(int inValue)
+void EnvelopeGenerator::processRelease()
 {
     
+    const uint32_t remaining_time = mReleaseTime - getTime();
+    
+    if (mShape == Linear) {
+        
+        
+        
+    }
+    else if (mShape == Exponential) {
+        
+        
+        
+    }
+    else {
+        
+        // \todo: Logarithmic response
+        
+    }
+    
+    if (remaining_time - mSampleTime <= 0) {
+        
+        // End of release phase
+        
+        mCurrentState = Idle;
+        
+        stop();
+        
+    }
+    
 }
+

@@ -23,6 +23,7 @@
 
 
 #include "Globs.h"
+#include "fassert.h"
 
 EnvelopeGenerator gEnvA;
 EnvelopeGenerator gEnvB;
@@ -79,4 +80,31 @@ const uint16_t gCentInterpolTable[99] = {
 volatile bool gRefreshFrequency = true;
 volatile uint16_t gNewCompare = 0x1000;
 volatile byte gNewPrescale = 0x01;
+
+
+/*! \brief These are C++ virtual handlers, not defined in avr-libc.
+ 
+ Basic implementation will do the job.
+ */
+extern "C" {
+    
+    void __cxa_pure_virtual() 
+    { 
+        
+        fassertfalse;
+        while (1);
+        
+    }
+    
+    void __cxa_guard_acquire() 
+    {  
+        
+    }
+    
+    void __cxa_guard_release() 
+    { 
+        
+    }
+    
+}
 

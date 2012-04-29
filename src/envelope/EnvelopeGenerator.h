@@ -23,15 +23,27 @@
 #ifndef _FSE_ENVELOPE_GENERATOR_H_
 #define _FSE_ENVELOPE_GENERATOR_H_
 
+#include "Clock.h"
+
 
 /*! \class EnvelopeGenerator 
  \brief 
  */
-class EnvelopeGenerator 
+class EnvelopeGenerator : public Clock
 {
 
 public:
 	
+    enum eShape 
+    {
+        Invalid = 0,
+        Linear,
+        Exponential,
+        Logarithmic,
+        eShape_count
+    };
+    
+    
 	/*==========================================================================
 	 Construction and Destruction
 	 ==========================================================================*/
@@ -47,21 +59,74 @@ public:
     
     void gateOff();
     
+    virtual void tick();
+    
     
     /*==========================================================================
 	 Settings
 	 ==========================================================================*/
 	
-    void setAttack(int inValue);
+    void setAttack(int inValue)
+    {
+        mAttackTime = inValue;
+    }
     
-    void setDecay(int inValue);
+    void setDecay(int inValue)
+    {
+        mDecayTime = inValue;
+    }
     
-    void setSustain(int inValue);
+    void setSustain(int inValue)
+    {
+        mSustainLevel = inValue;
+    }
     
-    void setRelease(int inValue);
+    void setRelease(int inValue)
+    {
+        mReleaseTime = inValue;
+    }
     
+	void setPolarity(bool inPositive)
+    {
+        mPositivePolarity = inPositive;
+    }
+    
+    void togglePolarity()
+    {
+        mPositivePolarity = !mPositivePolarity;
+    }
+    
+    void setShape(eShape inShape)
+    {
+        mShape = inShape;
+    }
+    
+    void setFast(bool inFastOperation)
+    {
+        mFast = inFastOperation;
+    }
+    
+    void toggleFast()
+    {
+        mFast = !mFast;
+    }
+    
+    
+    /*==========================================================================
+	 Algorithm
+	 ==========================================================================*/
 	
+    void doProcess();
+    
+    
 private:
+    
+    void processAttack();
+    
+    void processDecay();
+    
+    void processRelease();
+    
     
     enum eState 
     {
@@ -72,12 +137,22 @@ private:
         Release
     };
     
-    eState                  mCurrentState;
+    eState                          mCurrentState;
     
-    int                     mAttackTime;
-    int                     mDecayTime;
-    int                     mSustainLevel;
-    int                     mReleaseTime;
+    bool                            mGateState;
+    
+    uint32_t                        mAttackTime;
+    uint32_t                        mDecayTime;
+    uint16_t                        mSustainLevel;
+    uint32_t                        mReleaseTime;
+    
+    bool                            mPositivePolarity;
+    
+    bool                            mFast;
+    
+    eShape                          mShape;
+    
+    int                             mEnvelopeLevel;
     
 };
 

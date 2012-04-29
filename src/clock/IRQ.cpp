@@ -52,7 +52,9 @@ ISR(IRQ_B)
 ISR(IRQ_OVF)
 {
     
-    Clock::tick();
+    gEnvA.tick();
+    
+    gEnvB.tick();
     
     Output::handleOverflow();
     

@@ -25,6 +25,7 @@
 #define CONFFILE_H_
 
 
+#define COMPFLAG_SPI            1
 #define COMPFLAG_ENV_A          1   // Enable envelope A.
 #define COMPFLAG_ENV_B          1   // Enable envelope B.
 #define COMPFLAG_TRIGGER        1   // Add setting to allow rettriggering.

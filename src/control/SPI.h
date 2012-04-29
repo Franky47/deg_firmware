@@ -69,7 +69,6 @@ namespace SPI {
         toggleFastSlow,
         
         setShape,           // Exponential or Linear
-        setRetriggerMode,   // Allow retriggering 
         
         setPolarityPositive,
         setPolarityNegative,
@@ -94,9 +93,9 @@ namespace SPI {
 	
 	void handleMessage();
 	
-	void resetMessage();
-	
-	
+	byte getNumDataBytes(byte inMessageType);
+    
+    
 	// Members
 #if SPI_USE_BUFFER
 	

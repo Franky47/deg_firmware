@@ -104,8 +104,6 @@
 		312ADF69154D860E0063B802 /* PinMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinMapping.h; sourceTree = "<group>"; };
 		312ADF6B154D860E0063B802 /* SPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPI.cpp; sourceTree = "<group>"; };
 		312ADF6C154D860E0063B802 /* SPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPI.h; sourceTree = "<group>"; };
-		312ADF6D154D860E0063B802 /* Sync.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sync.cpp; sourceTree = "<group>"; };
-		312ADF6E154D860E0063B802 /* Sync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sync.h; sourceTree = "<group>"; };
 		312ADF70154D860E0063B802 /* fassert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fassert.h; sourceTree = "<group>"; };
 		312ADF71154D860E0063B802 /* Globs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Globs.cpp; sourceTree = "<group>"; };
 		312ADF72154D860E0063B802 /* Globs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Globs.h; sourceTree = "<group>"; };
@@ -113,6 +111,8 @@
 		312ADF74154D860E0063B802 /* Runtime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Runtime.cpp; sourceTree = "<group>"; };
 		312ADF75154D860E0063B802 /* Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Runtime.h; sourceTree = "<group>"; };
 		312ADF76154D860E0063B802 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		312ADFAF154D9C500063B802 /* Gate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gate.h; sourceTree = "<group>"; };
+		312ADFB0154D9C500063B802 /* Gate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gate.cpp; sourceTree = "<group>"; };
 		31DD6C0711BA9E3D00FF05DB /* console.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = console.sh; path = ../console.sh; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -140,8 +140,8 @@
 			children = (
 				312ADF6B154D860E0063B802 /* SPI.cpp */,
 				312ADF6C154D860E0063B802 /* SPI.h */,
-				312ADF6D154D860E0063B802 /* Sync.cpp */,
-				312ADF6E154D860E0063B802 /* Sync.h */,
+				312ADFB0154D9C500063B802 /* Gate.cpp */,
+				312ADFAF154D9C500063B802 /* Gate.h */,
 			);
 			path = control;
 			sourceTree = "<group>";

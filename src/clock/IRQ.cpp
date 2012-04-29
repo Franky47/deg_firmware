@@ -23,12 +23,13 @@
 
 #include "IRQ.h"
 #include "Globs.h"
-
+#include "PinMapping.h"
+#include "Gate.h"
 
 ISR(IRQ_A) 
 {
     
-    
+    // \todo Toggle output pin A state.
     
 }
 
@@ -36,7 +37,7 @@ ISR(IRQ_A)
 ISR(IRQ_B)
 {
 	
-    
+    // \todo Toggle output pin B state.
     
 }
 
@@ -55,11 +56,42 @@ ISR(IRQ_OVF)
 
 
 /*! \brief Interrupt handler for Gate input.
+ 
+ This is called when the state of the Gate pin changed.
  */
 ISR(IRQ_GATE)
 {
 	
-	
+	if (GATE_READ & (1 << GATE_PIN)) {
+      
+        // High level
+        
+#if GATE_POLARITY
+        
+        Gate::handleGateOn();
+        
+#else
+      
+        Gate::handleGateOff();
+        
+#endif
+        
+    }
+    else {
+        
+        // Low level
+
+#if GATE_POLARITY
+        
+        Gate::handleGateOff();
+        
+#else
+        
+        Gate::handleGateOn();
+        
+#endif
+        
+    }
     
 }
 

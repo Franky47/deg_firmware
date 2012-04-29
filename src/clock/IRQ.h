@@ -26,6 +26,11 @@
 
 #include <avr/interrupt.h>
 
+
+/*==============================================================================
+ Interrupt vectors definition
+ ==============================================================================*/
+
 #if defined (__AVR_ATmega644P__)
 
 	#define IRQ_A           TIMER1_COMPA_vect
@@ -44,15 +49,16 @@
 #endif
 
 
-
-
 #ifdef INT0_vect
-	#define IRQ_GATE        INT0_vect		// Universal
+
+	#define IRQ_GATE        INT0_vect		// Universal vector for both chips
+
 #endif
 
 
-// ---------------------------------------------------
-// Macros validity check
+/*==============================================================================
+ Macros validity checks
+ ==============================================================================*/
 
 #ifndef IRQ_A
 #error	No valid ISR found for A

@@ -24,6 +24,8 @@
 #ifndef _PIN_MAPPING_H_
 #define _PIN_MAPPING_H_
 
+#include <avr/io.h>
+
 #if defined (__AVR_ATmega644P__)
 
 #define ENV_A_PORT      

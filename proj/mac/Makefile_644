@@ -95,19 +95,23 @@ PROJECTNAME=DEG
 PROJ_ROOT=../../
 
 BUILD_DIR= $(PROJ_ROOT)build/
-OBJ_DIR= $(BUILD_DIR)obj/
-LST_DIR= $(BUILD_DIR)lst/
-HEX_DIR= $(BUILD_DIR)hex/
-ELF_DIR= $(BUILD_DIR)elf/
+OBJ_DIR= $(BUILD_DIR)Intermediates/obj/
+LST_DIR= $(BUILD_DIR)Intermediates/lst/
+HEX_DIR= $(BUILD_DIR)Products/hex/
+ELF_DIR= $(BUILD_DIR)Intermediates/elf/
 
 # Automatic list all dirs containing source files (.asm .s .S .c .cc .cpp .C .h .hpp .H)
 
-# CORE_DIR= $(PROJ_ROOT)../../../../../toolbox/cores/avr_core/ 	# Place relative path to avr_core
 CORE_DIR= $(PROJ_ROOT)src/core/ # Final version (light core)
-LIBS_DIR= $(PROJ_ROOT)libs/
+LIBS_DIR= $(PROJ_ROOT)src/config $(PROJ_ROOT)src/envelope $(PROJ_ROOT)src/clock $(PROJ_ROOT)src/output $(PROJ_ROOT)src/control
 
 # List source directories
-SRC_DIR=  $(PROJ_ROOT)src/ $(CORE_DIR) $(LIBS_DIR)
+SRC_DIR=$(PROJ_ROOT)src/core/ \
+	$(PROJ_ROOT)src/config/ \
+	$(PROJ_ROOT)src/envelope/ \
+	$(PROJ_ROOT)src/clock/ \
+	$(PROJ_ROOT)src/output/ \
+	$(PROJ_ROOT)src/control/
 
 
 # Source files

@@ -26,6 +26,7 @@
 #include "PinMapping.h"
 #include "Gate.h"
 #include "Output.h"
+#include "Clock.h"
 
 ISR(IRQ_A) 
 {
@@ -51,9 +52,9 @@ ISR(IRQ_B)
 ISR(IRQ_OVF)
 {
     
-    Output::handleOverflow();
+    Clock::tick();
     
-    // \todo Add clock tick.
+    Output::handleOverflow();
     
 }
 

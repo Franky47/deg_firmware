@@ -115,6 +115,8 @@
 		312ADFB0154D9C500063B802 /* Gate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gate.cpp; sourceTree = "<group>"; };
 		312ADFE5154DA4850063B802 /* Output.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Output.h; sourceTree = "<group>"; };
 		312ADFE6154DA4850063B802 /* Output.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Output.cpp; sourceTree = "<group>"; };
+		312ADFFA154DA7750063B802 /* Clock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clock.cpp; sourceTree = "<group>"; };
+		312ADFFB154DA7750063B802 /* Clock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Clock.h; sourceTree = "<group>"; };
 		31DD6C0711BA9E3D00FF05DB /* console.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = console.sh; path = ../console.sh; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -122,6 +124,8 @@
 		312ADF64154D860E0063B802 /* clock */ = {
 			isa = PBXGroup;
 			children = (
+				312ADFFA154DA7750063B802 /* Clock.cpp */,
+				312ADFFB154DA7750063B802 /* Clock.h */,
 				312ADF65154D860E0063B802 /* IRQ.cpp */,
 				312ADF66154D860E0063B802 /* IRQ.h */,
 			);

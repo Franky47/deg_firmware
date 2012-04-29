@@ -25,11 +25,12 @@
 #include "Globs.h"
 #include "PinMapping.h"
 #include "Gate.h"
+#include "Output.h"
 
 ISR(IRQ_A) 
 {
     
-    // \todo Toggle output pin A state.
+    Output::handleEnvA();
     
 }
 
@@ -37,7 +38,7 @@ ISR(IRQ_A)
 ISR(IRQ_B)
 {
 	
-    // \todo Toggle output pin B state.
+    Output::handleEnvB();
     
 }
 
@@ -50,7 +51,9 @@ ISR(IRQ_B)
 ISR(IRQ_OVF)
 {
     
+    Output::handleOverflow();
     
+    // \todo Add clock tick.
     
 }
 

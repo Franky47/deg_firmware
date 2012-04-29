@@ -1,9 +1,9 @@
 /*!
- *  @file		main.cpp
+ *  @file		Output.h
  *  Project		DEG
- *	@brief		Firmware entrypoint
- *  @author		Francois Best
- *	@date		15/01/10
+ *	@brief		PWM output module
+ *  @author		Francois Best 
+ *	@date		29/04/12
  *  @license	CC-BY-NC-SA Forty Seven Effects - 2012
  *
  * THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS 
@@ -21,18 +21,29 @@
  */
 
 
-#include "Runtime.h"
+#ifndef OUTPUT_H_
+#define OUTPUT_H_
 
-int main() {
-	
-	setup();
-	
-	for (;;) {
-		
-		loop();
-		
-	}
-	
-	return 0;
-	
+namespace Output 
+{
+    
+    /*==========================================================================
+     Initialisation
+     ==========================================================================*/
+    
+    void configure();
+    
+    
+    /*==========================================================================
+     Interrupt callbacks
+     ==========================================================================*/
+    
+    void handleEnvA();
+    
+    void handleEnvB();
+    
+    void handleOverflow();
+    
 }
+
+#endif // OUTPUT_H_

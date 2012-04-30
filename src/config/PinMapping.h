@@ -29,10 +29,12 @@
 #if defined (__AVR_ATmega644P__)
 
 #define ENV_A_PORT      
+#define ENV_A_READ      
 #define ENV_A_DDR       
 #define ENV_A_PIN       
 
 #define ENV_B_PORT      
+#define ENV_B_READ      
 #define ENV_B_DDR       
 #define ENV_B_PIN       
 
@@ -62,10 +64,12 @@
  */
 
 #define ENV_A_PORT      PORTA
+#define ENV_A_READ      PINA
 #define ENV_A_DDR       DDRA
 #define ENV_A_PIN       DDA0
 
 #define ENV_B_PORT      PORTA
+#define ENV_B_READ      PINA
 #define ENV_B_DDR       DDRA
 #define ENV_B_PIN       DDA1
 

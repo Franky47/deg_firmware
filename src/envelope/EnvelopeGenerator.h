@@ -114,12 +114,22 @@ public:
         mFast = !mFast;
     }
     
+    bool getPolarity() const
+    {
+        return mPositivePolarity;
+    }
+    
     
     /*==========================================================================
 	 Algorithm
 	 ==========================================================================*/
 	
     void doProcess();
+    
+    uint16_t getOutputLevel() const
+    {
+        return mEnvelopeLevel;
+    }
     
     
 private:
@@ -155,7 +165,7 @@ private:
     
     eShape                          mShape;
     
-    int                             mEnvelopeLevel;
+    uint16_t                        mEnvelopeLevel;
     
 };
 

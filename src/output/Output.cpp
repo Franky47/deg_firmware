@@ -24,6 +24,7 @@
 #include "Output.h"
 #include "PinMapping.h"
 #include "ConfFile.h"
+#include "Globs.h"
 
 /*==============================================================================
  Initialisation
@@ -31,7 +32,7 @@
 
 void Output::configure()
 {
-
+    
     // Set pins as output
     
 #if COMPFLAG_ENV_A
@@ -73,7 +74,11 @@ void Output::configure()
 void Output::handleEnvA()
 {
     
+#if COMPFLAG_ENV_A
     
+    ENV_A_READ |= (1 << ENV_A_PIN);
+    
+#endif // COMPFLAG_ENV_A
     
 }
 
@@ -84,7 +89,11 @@ void Output::handleEnvA()
 void Output::handleEnvB()
 {
     
+#if COMPFLAG_ENV_B
     
+    ENV_B_READ |= (1 << ENV_B_PIN);
+    
+#endif // COMPFLAG_ENV_B
     
 }
 
@@ -95,6 +104,61 @@ void Output::handleEnvB()
 void Output::handleOverflow()
 {
     
+#if COMPFLAG_ENV_A
     
+    OCR1A = gEnvA.getOutputLevel();
+    
+#if COMPFLAG_POLARITY
+    
+    if (gEnvA.getPolarity() == true) {
+        
+        // In positive polarity, start with high level.
+        ENV_A_PORT |= (1 << ENV_A_PIN);
+        
+    }
+    else {
+        
+        // In negative polarity, start with low  level.
+        ENV_A_PORT &= ~(1 << ENV_A_PIN);
+        
+    }
+    
+    
+#else // Positive polarity only.
+    
+    ENV_A_PORT |= (1 << ENV_A_PIN);
+    
+#endif // COMPFLAG_POLARITY
+    
+#endif // COMPFLAG_ENV_A
+    
+    
+#if COMPFLAG_ENV_B
+    
+    OCR1B = gEnvB.getOutputLevel();
+    
+#if COMPFLAG_POLARITY
+    
+    if (gEnvB.getPolarity() == true) {
+        
+        // In positive polarity, start with high level.
+        ENV_B_PORT |= (1 << ENV_B_PIN);
+        
+    }
+    else {
+        
+        // In negative polarity, start with low  level.
+        ENV_B_PORT &= ~(1 << ENV_B_PIN);
+        
+    }
+    
+    
+#else // Positive polarity only.
+    
+    ENV_B_PORT |= (1 << ENV_B_PIN);
+    
+#endif // COMPFLAG_POLARITY
+    
+#endif // COMPFLAG_ENV_B
     
 }

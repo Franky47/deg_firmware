@@ -35,14 +35,4 @@ extern EnvelopeGenerator gEnvB;
 
 
 
-// Lookup tables
-extern const byte gPrescaleShift[5];					// Lookup table for prescale shifting (1,8,64,256,1024)
-extern const uint32_t gClockDivision[12];				// Clock division values for semitones
-extern const uint16_t gCentInterpolTable[99];			// Valeurs de multiplication pour le calcul de la division d'horloge dynamique
-
-// Paramètres du timer
-extern volatile bool gRefreshFrequency;					// Toggle this to true to update counter on next rising edge of output clock
-extern volatile uint16_t gNewCompare;						// With this new compare value
-extern volatile byte gNewPrescale;						// And this new prescale value
-
 #endif // GLOBS_H_

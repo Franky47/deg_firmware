@@ -112,13 +112,6 @@ public:
     
 private:
     
-    void processAttack();
-    
-    void processDecay();
-    
-    void processRelease();
-    
-    
     enum eState 
     {
         Idle,

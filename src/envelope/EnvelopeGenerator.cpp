@@ -185,19 +185,28 @@ void EnvelopeGenerator::doProcess()
         
     }
     
+    uint32_t current_time = 0;
+    const uint32_t elapsed_time = getElapsedTime(&current_time);
+    
+    uint32_t base_time    = 0;
+    uint16_t target_level = 0;
+    
     if (mCurrentState == Attack) {
         
-        processAttack();
+        base_time    = mAttackTime;
+        target_level = max_sustain;
         
     }
     else if (mCurrentState == Decay) {
         
-        processDecay();
+        base_time    = mDecayTime;
+        target_level = mSustainLevel;
         
     }
     else if (mCurrentState == Release) {
         
-        processRelease();
+        base_time    = mReleaseTime;
+        target_level = 0;
         
     }
     else {
@@ -207,129 +216,54 @@ void EnvelopeGenerator::doProcess()
         
     }
     
-}
-
-
-void EnvelopeGenerator::processAttack()
-{
-    
-    const uint32_t remaining_time = mAttackTime - getTime();
+    if (current_time >= base_time) {
+        
+        // End of current phase
+        
+        mEnvelopeLevel = target_level;
+        
+        switch (mCurrentState) 
+        {
+            case Attack:
+                mCurrentState = mGateState ? Decay : Release;
+                reset();
+                break;
+                
+            case Decay:
+                mCurrentState = mGateState ? Sustain : Release;
+                reset();
+                break;
+                
+            case Release:
+                mCurrentState = Idle;
+                stop();
+                break;
+                
+            default:
+                fassertfalse;
+                break;
+        }
+        
+        return;
+        
+    }
     
     if (mShape == Linear) {
         
+        const int32_t denominator = base_time - current_time + elapsed_time;
+        const int32_t numerator   = elapsed_time * (target_level - mEnvelopeLevel);
         
+        mEnvelopeLevel += (numerator / denominator);
         
     }
     else if (mShape == Exponential) {
         
-        
-        
-    }
-    else {
-        
-        // \todo: Logarithmic response
-        
-    }
-    
-    if (remaining_time - mSampleTime <= 0) {
-        
-        // End of attack phase
-        
-        if (mGateState == true) {
-            
-            mCurrentState = Decay;
-            
-        }
-        else {
-            
-            // Gate removed before end of attack
-            // Go to release state directly.
-            mCurrentState = Release;
-            
-        }
-        
-        reset();
-        
-    }
-    
-}
-
-
-void EnvelopeGenerator::processDecay()
-{
-    
-    const uint32_t remaining_time = mDecayTime - getTime();
-    
-    if (mShape == Linear) {
-        
-        
-        
-    }
-    else if (mShape == Exponential) {
-        
-        
+        // \todo Add wave generation
         
     }
     else {
         
-        // \todo: Logarithmic response
-        
-    }
-    
-    if (remaining_time - mSampleTime <= 0) {
-        
-        // End of decay phase
-        
-        if (mGateState == true) {
-            
-            mCurrentState = Sustain;
-            
-            stop();
-            
-        }
-        else {
-            
-            // Gate removed before end of decay
-            // Go to release state directly.
-            mCurrentState = Release;
-            
-            reset();
-            
-        }
-        
-    }
-    
-}
-
-
-void EnvelopeGenerator::processRelease()
-{
-    
-    const uint32_t remaining_time = mReleaseTime - getTime();
-    
-    if (mShape == Linear) {
-        
-        
-        
-    }
-    else if (mShape == Exponential) {
-        
-        
-        
-    }
-    else {
-        
-        // \todo: Logarithmic response
-        
-    }
-    
-    if (remaining_time - mSampleTime <= 0) {
-        
-        // End of release phase
-        
-        mCurrentState = Idle;
-        
-        stop();
+        // \todo Add wave generation
         
     }
     

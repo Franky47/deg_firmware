@@ -63,9 +63,14 @@ protected:
         return mMicrosecondsCounter;
     }
     
+    uint32_t getElapsedTime(uint32_t* outCurrentTime);
+    
+    
     bool                                        mIsRunning;
     
     uint32_t                                    mMicrosecondsCounter;
+    
+    uint32_t                                    mTimeStamp;
     
     static const byte                           mSampleTime;
     

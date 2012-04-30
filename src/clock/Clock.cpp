@@ -35,6 +35,7 @@ const byte Clock::mSampleTime = 4;  // Time in microseconds between two ticks.
 Clock::Clock()
     : mIsRunning(false)
     , mMicrosecondsCounter(0)
+    , mTimeStamp(0)
 {
     
 }
@@ -74,6 +75,21 @@ void Clock::stop()
     mIsRunning = false;
     
     reset();
+    
+}
+
+
+/*! \brief Get elapsed time between two calls to this method. */
+uint32_t Clock::getElapsedTime(uint32_t* outCurrentTime)
+{
+    
+    *outCurrentTime = mMicrosecondsCounter;
+    
+    const uint32_t result = *outCurrentTime - mTimeStamp;
+    
+    mTimeStamp = *outCurrentTime;
+    
+    return result;
     
 }
 

@@ -445,6 +445,65 @@ void SPI::handleMessage()
         }
             break;
         
+            
+        case setPolarityPositive:
+        {
+            
+#if COMPFLAG_ENV_A
+            
+            if (message_dest_A)     gEnvA.setPolarity(true);
+            
+#else
+            if (0) { }
+#endif
+            
+#if COMPFLAG_ENV_B
+            
+            else                    gEnvB.setPolarity(true);
+            
+#endif
+        }
+            break;
+            
+        case setPolarityNegative:
+        {
+            
+#if COMPFLAG_ENV_A
+            
+            if (message_dest_A)     gEnvA.setPolarity(false);
+            
+#else
+            if (0) { }
+#endif
+            
+#if COMPFLAG_ENV_B
+            
+            else                    gEnvB.setPolarity(false);
+            
+#endif
+        }
+            break;
+            
+        case togglePolarity:
+        {
+            
+#if COMPFLAG_ENV_A
+            
+            if (message_dest_A)     gEnvA.togglePolarity();
+            
+#else
+            if (0) { }
+#endif
+            
+#if COMPFLAG_ENV_B
+            
+            else                    gEnvB.togglePolarity();
+            
+#endif
+        }
+            break;
+            
+            
 #endif // COMPFLAG_ENV_A || COMPFLAG_ENV_B
             
         case Invalid:

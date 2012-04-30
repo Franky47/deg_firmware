@@ -43,7 +43,7 @@ Clock::Clock()
 void Clock::configure()
 {
     
-    TCCR1B = (1 << CS11) | (1 << CS10);     // Prescale: clk/64 = 250 KHz (4us)
+    TCCR1B |= (1 << CS11) | (1 << CS10);     // Prescale: clk/64 = 250 KHz (4us)
     
 }
 

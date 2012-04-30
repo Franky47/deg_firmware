@@ -129,6 +129,42 @@ void EnvelopeGenerator::tick()
 
 
 /*==============================================================================
+ Settings
+ ==============================================================================*/
+
+void EnvelopeGenerator::setAttack(uint32_t inValue)
+{
+    
+    mAttackTime = inValue;
+    
+}
+
+
+void EnvelopeGenerator::setDecay(uint32_t inValue)
+{
+    
+    mDecayTime = inValue;
+    
+}
+
+
+void EnvelopeGenerator::setSustain(uint32_t inValue)
+{
+    
+    mSustainLevel = inValue;
+    
+}
+
+
+void EnvelopeGenerator::setRelease(uint32_t inValue)
+{
+    
+    mReleaseTime = inValue;
+    
+}
+
+
+/*==============================================================================
  Algorithm
  ==============================================================================*/
 

@@ -69,25 +69,13 @@ public:
 	 Settings
 	 ==========================================================================*/
 	
-    void setAttack(int inValue)
-    {
-        mAttackTime = inValue;
-    }
+    void setAttack(uint32_t inValue);
     
-    void setDecay(int inValue)
-    {
-        mDecayTime = inValue;
-    }
+    void setDecay(uint32_t inValue);
     
-    void setSustain(int inValue)
-    {
-        mSustainLevel = inValue;
-    }
+    void setSustain(uint32_t inValue);
     
-    void setRelease(int inValue)
-    {
-        mReleaseTime = inValue;
-    }
+    void setRelease(uint32_t inValue);
     
 	void setPolarity(bool inPositive)
     {

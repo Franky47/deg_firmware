@@ -34,10 +34,14 @@
 /*
  SPI Driver Service Manual:
  
- Lorsqu'un byte est reçu dans le registre SPI, l'IRQ correspondant se lance pour le sauver dans le buffer.
- Le buffer est pollé par read(), qui lance le parseur pour tenter de récupérer des messages.
- Lorsque le parseur détecte un message, il lance directement l'action associée (pas de retour au Runtime pour redirection).
+ When a byte is received in the SPI register, the corresponding IRQ routine
+ is launched to save it in the buffer (if not using the buffer, direct 1-byte
+ parsing occurs synchronously).
  
+ When calling SPI::read, the parser is called on the buffer bytes to interpret
+ the message. 
+ 
+ Successful parsing will synchronously launch the handler callback.
  */
 
 #if DEBUG_SERIAL

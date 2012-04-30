@@ -39,7 +39,7 @@
 #define GATE_POLARITY           1   // 1 means high level = Gate On, 0 means low level = Gate On.
 
 #define SPI_BUFFER_SIZE			16
-#define SPI_MAX_MSG_SIZE		3
+#define SPI_MAX_MSG_SIZE		4
 #define SPI_USE_BUFFER          0
 
 

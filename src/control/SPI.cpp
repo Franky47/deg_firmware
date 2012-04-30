@@ -342,14 +342,14 @@ void SPI::handleMessage()
     
 #if COMPFLAG_ENV_A || COMPFLAG_ENV_B
     
-    // \refactor #if block added to satisfy unused variable.
+    // \refactor This #if block was added to avoid unused variable warning.
     // Remove it if using another modulation source.
     
-    const bool message_dest_A = !(Message::data[0] & 0x40);
+    const bool message_dest_A = !(Message::data[0] & 0x40); // Mask: 0100000
     
 #endif 
     
-    const byte message_type = Message::data[0] & 0x3F;
+    const byte message_type = Message::data[0] & 0x3F;      // Mask: 00111111
     
     switch (message_type) {
         
@@ -369,8 +369,10 @@ void SPI::handleMessage()
             
         case setAttack:
         {
-
-            const uint16_t data = ((uint16_t)Message::data[1] << 7) | Message::data[2];
+            
+            const uint32_t data = ((uint32_t)Message::data[1] << 14) 
+                                | ((uint32_t)Message::data[2] << 7) 
+                                |  (uint32_t)Message::data[3];
             
 #if COMPFLAG_ENV_A
             
@@ -391,7 +393,10 @@ void SPI::handleMessage()
             
         case setDecay:
         {
-            const uint16_t data = ((uint16_t)Message::data[1] << 7) | Message::data[2];
+            
+            const uint32_t data = ((uint32_t)Message::data[1] << 14) 
+                                | ((uint32_t)Message::data[2] << 7) 
+                                |  (uint32_t)Message::data[3];
             
 #if COMPFLAG_ENV_A
             
@@ -411,6 +416,7 @@ void SPI::handleMessage()
             
         case setSustain:
         {
+ 
             const uint16_t data = ((uint16_t)Message::data[1] << 7) | Message::data[2];
             
 #if COMPFLAG_ENV_A
@@ -431,7 +437,10 @@ void SPI::handleMessage()
             
         case setRelease:
         {
-            const uint16_t data = ((uint16_t)Message::data[1] << 7) | Message::data[2];
+            
+            const uint32_t data = ((uint32_t)Message::data[1] << 14) 
+                                | ((uint32_t)Message::data[2] << 7) 
+                                |  (uint32_t)Message::data[3];
             
 #if COMPFLAG_ENV_A
             
@@ -535,11 +544,14 @@ byte SPI::getNumDataBytes(byte inMessageType)
     {
         case setAttack:
         case setDecay:
-        case setSustain:
         case setRelease:
-            return 2;
+            return 3;       // 21 bits resolution
             break;
         
+        case setSustain:
+            return 2;       // 14 bit resolution
+            break;
+            
         case trigger:
         case gateOn:
         case gateOff:

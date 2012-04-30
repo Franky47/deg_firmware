@@ -356,7 +356,7 @@ void SPI::handleMessage()
             
         case setAttack:
         {
-            const int data = ((unsigned)Message::data[1] << 7) | Message::data[2];
+            const uint16_t data = ((uint16_t)Message::data[1] << 7) | Message::data[2];
             
             if (message_dest_A)     gEnvA.setAttack(data);
             else                    gEnvB.setAttack(data);
@@ -365,7 +365,7 @@ void SPI::handleMessage()
             
         case setDecay:
         {
-            const int data = ((unsigned)Message::data[1] << 7) | Message::data[2];
+            const uint16_t data = ((uint16_t)Message::data[1] << 7) | Message::data[2];
             
             if (message_dest_A)     gEnvA.setDecay(data);
             else                    gEnvB.setDecay(data);
@@ -374,7 +374,7 @@ void SPI::handleMessage()
             
         case setSustain:
         {
-            const int data = ((unsigned)Message::data[1] << 7) | Message::data[2];
+            const uint16_t data = ((uint16_t)Message::data[1] << 7) | Message::data[2];
             
             if (message_dest_A)     gEnvA.setSustain(data);
             else                    gEnvB.setSustain(data);
@@ -383,7 +383,7 @@ void SPI::handleMessage()
             
         case setRelease:
         {
-            const int data = ((unsigned)Message::data[1] << 7) | Message::data[2];
+            const uint16_t data = ((uint16_t)Message::data[1] << 7) | Message::data[2];
             
             if (message_dest_A)     gEnvA.setRelease(data);
             else                    gEnvB.setRelease(data);

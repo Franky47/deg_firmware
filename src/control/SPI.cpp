@@ -555,9 +555,6 @@ byte SPI::getNumDataBytes(byte inMessageType)
         case trigger:
         case gateOn:
         case gateOff:
-        case setFastMode:
-        case setSlowMode:
-        case toggleFastSlow:
         case setPolarityPositive:
         case setPolarityNegative:
         case togglePolarity:

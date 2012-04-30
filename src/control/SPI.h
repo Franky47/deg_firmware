@@ -68,10 +68,6 @@ namespace SPI {
         setRelease,         // 14 bit data value (range-independant)
         
         // Settings
-        setFastMode,        // Range: 100us to 1s
-        setSlowMode,        // Range: 1ms to 10s
-        toggleFastSlow,
-        
         setShape,           // Exponential or Linear
         
         setPolarityPositive,

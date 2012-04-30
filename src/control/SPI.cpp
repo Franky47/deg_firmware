@@ -26,6 +26,7 @@
 #include "Globs.h"
 #include "fassert.h"
 #include "IRQ.h"
+#include "Gate.h"
 
 #if COMPFLAG_SPI
 
@@ -341,6 +342,18 @@ void SPI::handleMessage()
     
     switch (message_type) {
         
+        case trigger:
+            Gate::handleTrigger();
+            break;
+            
+        case gateOn:
+            Gate::handleGateOn();
+            break;
+            
+        case gateOff:
+            Gate::handleGateOff();
+            break;
+            
         case setAttack:
         {
             const int data = ((unsigned)Message::data[1] << 7) | Message::data[2];
@@ -409,6 +422,9 @@ byte SPI::getNumDataBytes(byte inMessageType)
             return 2;
             break;
         
+        case trigger:
+        case gateOn:
+        case gateOff:
         case setFastMode:
         case setSlowMode:
         case toggleFastSlow:

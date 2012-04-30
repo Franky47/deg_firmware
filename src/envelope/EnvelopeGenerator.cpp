@@ -73,11 +73,9 @@ EnvelopeGenerator::EnvelopeGenerator()
 void EnvelopeGenerator::gateOn()
 {
     
-    mCurrentState = Attack;
-    
     mGateState = true;
     
-    reset();
+    trigger();
     
 }
 
@@ -98,6 +96,16 @@ void EnvelopeGenerator::gateOff()
     // - Go to release state after that.
     
     mGateState = false;
+    
+}
+
+
+void EnvelopeGenerator::trigger()
+{
+    
+    mCurrentState = Attack;
+    
+    reset();
     
 }
 

@@ -53,6 +53,8 @@ namespace Gate
     
     void handleGateOff();
     
+    void handleTrigger();
+    
 }
 
 

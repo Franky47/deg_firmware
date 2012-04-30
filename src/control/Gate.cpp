@@ -130,3 +130,11 @@ void Gate::handleGateOff()
     
 }
 
+
+void Gate::handleTrigger()
+{
+    
+    gEnvA.trigger();
+    gEnvB.trigger();
+    
+}

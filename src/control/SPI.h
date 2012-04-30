@@ -57,6 +57,10 @@ namespace SPI {
     {
         Invalid = -1,
         
+        trigger,
+        gateOn,
+        gateOff,
+        
         // Parameters
         setAttack,          // 14 bit data value (range-independant)
         setDecay,           // 14 bit data value (range-independant)

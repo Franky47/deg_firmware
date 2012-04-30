@@ -91,17 +91,7 @@ public:
     {
         mShape = inShape;
     }
-    
-    void setFast(bool inFastOperation)
-    {
-        mFast = inFastOperation;
-    }
-    
-    void toggleFast()
-    {
-        mFast = !mFast;
-    }
-    
+        
     bool getPolarity() const
     {
         return mPositivePolarity;
@@ -148,8 +138,6 @@ private:
     uint32_t                        mReleaseTime;
     
     bool                            mPositivePolarity;
-    
-    bool                            mFast;
     
     eShape                          mShape;
     

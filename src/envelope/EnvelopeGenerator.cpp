@@ -23,22 +23,16 @@
 #include "EnvelopeGenerator.h"
 #include "fassert.h"
 #include "Clock.h"
+#include "Math.h"
 
-#define slow_min_attack     1000
-#define slow_min_decay      1000
-#define slow_min_release    1000
+// Values in microseconds
+#define min_attack          100
+#define min_decay           100
+#define min_release         100
 
-#define fast_min_attack     100
-#define fast_min_decay      100
-#define fast_min_release    100
-
-#define slow_max_attack     10000000
-#define slow_max_decay      10000000
-#define slow_max_release    10000000
-
-#define fast_max_attack     1000000
-#define fast_max_decay      1000000
-#define fast_max_release    1000000
+#define max_attack          10000000
+#define max_decay           10000000
+#define max_release         10000000
 
 #define min_sustain         0
 #define max_sustain         16383
@@ -53,12 +47,11 @@
 EnvelopeGenerator::EnvelopeGenerator() 
     : Clock()
     , mCurrentState(Idle)
-    , mAttackTime(slow_min_attack)
-    , mDecayTime(slow_min_decay)
+    , mAttackTime(min_attack)
+    , mDecayTime(min_decay)
     , mSustainLevel(max_sustain)
-    , mReleaseTime(slow_min_release)
+    , mReleaseTime(min_release)
     , mPositivePolarity(true)
-    , mFast(false)
     , mShape(Linear)
     , mEnvelopeLevel(0)
 {
@@ -135,7 +128,11 @@ void EnvelopeGenerator::tick()
 void EnvelopeGenerator::setAttack(uint32_t inValue)
 {
     
-    mAttackTime = inValue;
+    mAttackTime = map(inValue,
+                      0x00000000,
+                      0x001FFFFF,
+                      (uint32_t)min_attack,
+                      (uint32_t)max_attack);
     
 }
 
@@ -143,7 +140,11 @@ void EnvelopeGenerator::setAttack(uint32_t inValue)
 void EnvelopeGenerator::setDecay(uint32_t inValue)
 {
     
-    mDecayTime = inValue;
+    mDecayTime = map(inValue,
+                     0x00000000,
+                     0x001FFFFF,
+                     (uint32_t)min_decay,
+                     (uint32_t)max_decay);
     
 }
 
@@ -159,7 +160,11 @@ void EnvelopeGenerator::setSustain(uint16_t inValue)
 void EnvelopeGenerator::setRelease(uint32_t inValue)
 {
     
-    mReleaseTime = inValue;
+    mReleaseTime = map(inValue,
+                       0x00000000,
+                       0x001FFFFF,
+                       (uint32_t)min_release,
+                       (uint32_t)max_release);
     
 }
 

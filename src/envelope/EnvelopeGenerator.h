@@ -59,6 +59,9 @@ public:
     
     void gateOff();
     
+    void trigger();
+    
+    
     virtual void tick();
     
     

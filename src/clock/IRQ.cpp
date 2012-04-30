@@ -52,9 +52,17 @@ ISR(IRQ_B)
 ISR(IRQ_OVF)
 {
     
+#if COMPFLAG_ENV_A
+    
     gEnvA.tick();
     
+#endif
+    
+#if COMPFLAG_ENV_B
+    
     gEnvB.tick();
+    
+#endif
     
     Output::handleOverflow();
     

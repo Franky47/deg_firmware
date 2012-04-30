@@ -116,8 +116,17 @@ void Gate::toggle()
 void Gate::handleGateOn()
 {
     
+#if COMPFLAG_ENV_A
+    
     gEnvA.gateOn();
+    
+#endif
+    
+#if COMPFLAG_ENV_B
+    
     gEnvB.gateOn();
+    
+#endif
     
 }
 
@@ -125,8 +134,17 @@ void Gate::handleGateOn()
 void Gate::handleGateOff()
 {
     
+#if COMPFLAG_ENV_A
+    
     gEnvA.gateOff();
+    
+#endif
+    
+#if COMPFLAG_ENV_B
+    
     gEnvB.gateOff();
+    
+#endif
     
 }
 
@@ -134,7 +152,16 @@ void Gate::handleGateOff()
 void Gate::handleTrigger()
 {
     
+#if COMPFLAG_ENV_A
+    
     gEnvA.trigger();
+    
+#endif
+    
+#if COMPFLAG_ENV_B
+    
     gEnvB.trigger();
+    
+#endif
     
 }

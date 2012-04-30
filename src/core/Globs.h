@@ -29,8 +29,17 @@
 #include "ConfFile.h"
 #include "EnvelopeGenerator.h"
 
+#if COMPFLAG_ENV_A
+
 extern EnvelopeGenerator gEnvA;
+
+#endif
+
+#if COMPFLAG_ENV_B
+
 extern EnvelopeGenerator gEnvB;
+
+#endif
 
 
 extern "C" {

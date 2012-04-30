@@ -336,7 +336,14 @@ void SPI::parse(const byte inByte)
 void SPI::handleMessage()
 {
     
+#if COMPFLAG_ENV_A || COMPFLAG_ENV_B
+    
+    // \refactor #if block added to satisfy unused variable.
+    // Remove it if using another modulation source.
+    
     const bool message_dest_A = !(Message::data[0] & 0x40);
+    
+#endif 
     
     const byte message_type = Message::data[0] & 0x3F;
     
@@ -353,13 +360,28 @@ void SPI::handleMessage()
         case gateOff:
             Gate::handleGateOff();
             break;
+
+#if COMPFLAG_ENV_A || COMPFLAG_ENV_B
             
         case setAttack:
         {
+
             const uint16_t data = ((uint16_t)Message::data[1] << 7) | Message::data[2];
             
+#if COMPFLAG_ENV_A
+            
             if (message_dest_A)     gEnvA.setAttack(data);
+            
+#else
+            if (0) { }
+#endif
+            
+#if COMPFLAG_ENV_B
+            
             else                    gEnvB.setAttack(data);
+            
+#endif
+            
         }
             break;
             
@@ -367,8 +389,19 @@ void SPI::handleMessage()
         {
             const uint16_t data = ((uint16_t)Message::data[1] << 7) | Message::data[2];
             
+#if COMPFLAG_ENV_A
+            
             if (message_dest_A)     gEnvA.setDecay(data);
+            
+#else
+            if (0) { }
+#endif
+            
+#if COMPFLAG_ENV_B
+            
             else                    gEnvB.setDecay(data);
+            
+#endif
         }
             break;
             
@@ -376,8 +409,19 @@ void SPI::handleMessage()
         {
             const uint16_t data = ((uint16_t)Message::data[1] << 7) | Message::data[2];
             
+#if COMPFLAG_ENV_A
+            
             if (message_dest_A)     gEnvA.setSustain(data);
+            
+#else
+            if (0) { }
+#endif
+            
+#if COMPFLAG_ENV_B
+            
             else                    gEnvB.setSustain(data);
+            
+#endif
         }
             break;
             
@@ -385,12 +429,23 @@ void SPI::handleMessage()
         {
             const uint16_t data = ((uint16_t)Message::data[1] << 7) | Message::data[2];
             
+#if COMPFLAG_ENV_A
+            
             if (message_dest_A)     gEnvA.setRelease(data);
+            
+#else
+            if (0) { }
+#endif
+            
+#if COMPFLAG_ENV_B
+            
             else                    gEnvB.setRelease(data);
+            
+#endif
         }
             break;
         
-            
+#endif // COMPFLAG_ENV_A || COMPFLAG_ENV_B
             
         case Invalid:
         default:

@@ -26,9 +26,17 @@
 #include "fassert.h"
 #include "Types.h"
 
+#if COMPFLAG_ENV_A
+
 EnvelopeGenerator gEnvA;
+
+#endif
+
+#if COMPFLAG_ENV_B
+
 EnvelopeGenerator gEnvB;
 
+#endif 
 
 
 /*! \brief These are C++ virtual handlers, not defined in avr-libc.

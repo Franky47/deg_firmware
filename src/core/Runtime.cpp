@@ -155,9 +155,17 @@ void loop()
         
 #if !(COMPFLAG_SYNCHRONOUS)
         
+#if COMPFLAG_ENV_A
+        
         gEnvA.doProcess();
         
+#endif
+        
+#if COMPFLAG_ENV_B
+        
         gEnvB.doProcess();
+        
+#endif
         
 #endif
         

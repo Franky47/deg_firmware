@@ -58,7 +58,7 @@ protected:
     
     void stop();
     
-    uint32_t getTime()
+    uint32_t getTime() const
     {
         return mMicrosecondsCounter;
     }

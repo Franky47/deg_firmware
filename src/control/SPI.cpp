@@ -459,6 +459,8 @@ void SPI::handleMessage()
             break;
             
             
+#if COMPFLAG_POLARITY
+            
         case setPolarityPositive:
         {
             
@@ -515,6 +517,8 @@ void SPI::handleMessage()
 #endif
         }
             break;
+            
+#endif // COMPFLAG_POLARITY
             
             
 #endif // COMPFLAG_ENV_A || COMPFLAG_ENV_B

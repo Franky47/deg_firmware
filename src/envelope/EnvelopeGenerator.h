@@ -24,6 +24,7 @@
 #define _FSE_ENVELOPE_GENERATOR_H_
 
 #include "Clock.h"
+#include "ConfFile.h"
 
 
 /*! \class EnvelopeGenerator 
@@ -34,6 +35,8 @@ class EnvelopeGenerator : public Clock
     
 public:
     
+#if COMPFLAG_SHAPING
+    
     enum eShape 
     {
         Invalid = 0,
@@ -43,6 +46,7 @@ public:
         eShape_count
     };
     
+#endif
     
     /*==========================================================================
      Construction and Destruction
@@ -77,6 +81,9 @@ public:
     
     void setRelease(uint32_t inValue);
     
+    
+#if COMPFLAG_POLARITY
+    
     void setPolarity(bool inPositive)
     {
         mPositivePolarity = inPositive;
@@ -87,15 +94,23 @@ public:
         mPositivePolarity = !mPositivePolarity;
     }
     
-    void setShape(eShape inShape)
-    {
-        mShape = inShape;
-    }
     
     bool getPolarity() const
     {
         return mPositivePolarity;
     }
+    
+#endif // COMPFLAG_POLARITY
+    
+    
+#if COMPFLAG_SHAPING
+    
+    void setShape(eShape inShape)
+    {
+        mShape = inShape;
+    }
+    
+#endif // COMPFLAG_SHAPING
     
     
     /*==========================================================================
@@ -130,9 +145,18 @@ private:
     uint16_t                        mSustainLevel;
     uint32_t                        mReleaseTime;
     
+#if COMPFLAG_POLARITY
+    
     bool                            mPositivePolarity;
     
+#endif
+    
+    
+#if COMPFLAG_SHAPING
+    
     eShape                          mShape;
+    
+#endif
     
     uint16_t                        mEnvelopeLevel;
     

@@ -51,8 +51,12 @@ EnvelopeGenerator::EnvelopeGenerator()
     , mDecayTime(min_decay)
     , mSustainLevel(max_sustain)
     , mReleaseTime(min_release)
+#if COMPFLAG_POLARITY
     , mPositivePolarity(true)
+#endif
+#if COMPFLAG_SHAPING
     , mShape(Linear)
+#endif
     , mEnvelopeLevel(0)
 {
     
@@ -248,12 +252,19 @@ void EnvelopeGenerator::doProcess()
         
     }
     
+#if COMPFLAG_SHAPING
+    
+    // Default shape when shaping is not enabled is linear.
     if (mShape == Linear) {
+        
+#endif // COMPFLAG_SHAPING
         
         const int32_t denominator = base_time - current_time + elapsed_time;
         const int32_t numerator   = elapsed_time * (target_level - mEnvelopeLevel);
         
         mEnvelopeLevel += (numerator / denominator);
+     
+#if COMPFLAG_SHAPING
         
     }
     else if (mShape == Exponential) {
@@ -266,6 +277,8 @@ void EnvelopeGenerator::doProcess()
         // \todo Add wave generation
         
     }
+    
+#endif // COMPFLAG_SHAPING
     
 }
 

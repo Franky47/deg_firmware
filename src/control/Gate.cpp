@@ -152,16 +152,20 @@ void Gate::handleGateOff()
 void Gate::handleTrigger()
 {
     
+#if COMPFLAG_TRIGGER
+    
 #if COMPFLAG_ENV_A
     
     gEnvA.trigger();
     
-#endif
+#endif // COMPFLAG_ENV_A
     
 #if COMPFLAG_ENV_B
     
     gEnvB.trigger();
     
-#endif
+#endif // COMPFLAG_ENV_B
+    
+#endif // COMPFLAG_TRIGGER
     
 }

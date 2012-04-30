@@ -38,7 +38,7 @@ ISR(IRQ_A)
 
 ISR(IRQ_B)
 {
-	
+    
     Output::handleEnvB();
     
 }
@@ -75,9 +75,9 @@ ISR(IRQ_OVF)
  */
 ISR(IRQ_GATE)
 {
-	
-	if (GATE_READ & (1 << GATE_PIN)) {
-      
+    
+    if (GATE_READ & (1 << GATE_PIN)) {
+        
         // High level
         
 #if GATE_POLARITY
@@ -85,7 +85,7 @@ ISR(IRQ_GATE)
         Gate::handleGateOn();
         
 #else
-      
+        
         Gate::handleGateOff();
         
 #endif
@@ -94,7 +94,7 @@ ISR(IRQ_GATE)
     else {
         
         // Low level
-
+        
 #if GATE_POLARITY
         
         Gate::handleGateOff();

@@ -52,28 +52,28 @@
 
 #if defined (__AVR_ATmega644P__)
 
-#define SPI_PORT_DDR	DDRB
-#define SPI_SS			DDB4
-#define SPI_MOSI		DDB5
-#define SPI_MISO		DDB6
-#define SPI_SCK			DDB7
+#define SPI_PORT_DDR    DDRB
+#define SPI_SS          DDB4
+#define SPI_MOSI        DDB5
+#define SPI_MISO        DDB6
+#define SPI_SCK         DDB7
 
-#define SPI_DATA_VECT	SPI_STC_vect
-#define SPI_DATA_REG	SPDR
+#define SPI_DATA_VECT   SPI_STC_vect
+#define SPI_DATA_REG    SPDR
 
 #elif defined (__AVR_ATtiny44__) || defined (__AVR_ATtiny84__)
 
-#define SPI_PORT_DDR	DDRA
-#define SPI_SS			DDA3
-#define SPI_MOSI		DDA6
-#define SPI_MISO		DDA5
-#define SPI_SCK			DDA4
+#define SPI_PORT_DDR    DDRA
+#define SPI_SS          DDA3
+#define SPI_MOSI        DDA6
+#define SPI_MISO        DDA5
+#define SPI_SCK         DDA4
 
-#define SPI_DATA_VECT	USI_OVF_vect
-#define SPI_DATA_REG	USIBR	// Buffered register, use USIDR for unbuffered read.
+#define SPI_DATA_VECT   USI_OVF_vect
+#define SPI_DATA_REG    USIBR   // Buffered register, use USIDR for unbuffered read.
 
-#define SPI_SS_VECT		PCINT0_vect
-#define SPI_SS_READ		PINA
+#define SPI_SS_VECT     PCINT0_vect
+#define SPI_SS_READ     PINA
 
 #else
 #error Unsupported target MCU
@@ -135,10 +135,10 @@ void SPI::configure()
     // ----------------------------------------------
     // Hardware configuration
     
-    SPI_PORT_DDR &= ~(1 << SPI_SCK);	// SCK:		Input
-    SPI_PORT_DDR &= ~(1 << SPI_MOSI);	// MOSI:	Input
-    SPI_PORT_DDR |=  (1 << SPI_MISO);	// MISO:	Output
-    SPI_PORT_DDR &= ~(1 << SPI_SS);		// SS:		Input
+    SPI_PORT_DDR &= ~(1 << SPI_SCK);    // SCK:     Input
+    SPI_PORT_DDR &= ~(1 << SPI_MOSI);   // MOSI:    Input
+    SPI_PORT_DDR |=  (1 << SPI_MISO);   // MISO:    Output
+    SPI_PORT_DDR &= ~(1 << SPI_SS);     // SS:      Input
     
 #if defined (__AVR_ATmega644P__)
     
@@ -146,13 +146,13 @@ void SPI::configure()
     SPCR = (1<<SPE) | (1<<SPIE) | (0<<DORD) | (0<<MSTR) | (0<<CPOL) | (0<<CPHA);
     
 #elif defined (__AVR_ATtiny44__) || defined (__AVR_ATtiny84__)
-	
+    
     // Enable 3-wire mode + Interrupt + Clock external, positive edge
     USICR = (1 << USIOIE) | (0 << USIWM1) | (1 << USIWM0) | (1 << USICS1) | (0 << USICS0);
     
     // We also need to setup SS as a pin change interrupt
-    GIMSK  |= (1 << PCIE0);		// Enable Pin Change interrupt for port A (PCI 0)
-    PCMSK0 |= (1 << SPI_SS);	// Enable Interrupt for pin SS
+    GIMSK  |= (1 << PCIE0);     // Enable Pin Change interrupt for port A (PCI 0)
+    PCMSK0 |= (1 << SPI_SS);    // Enable Interrupt for pin SS
     
 #else
 #error Unsupported target MCU
@@ -175,7 +175,7 @@ void SPI::read()
     
     parse_buffer();
     
-#endif	
+#endif
     
 }
 
@@ -277,7 +277,7 @@ void SPI::parse(const byte inByte)
             Message::length = 1 + getNumDataBytes(inByte);
             
             if (Message::length == 1) {
-              
+                
                 // One byte message, direct handling.
                 handleMessage();
                 
@@ -308,7 +308,7 @@ void SPI::parse(const byte inByte)
          Serial.printNumber(inByte,16);
          Serial << " (appending)" << endl;
          #endif
-         */		
+         */
         // Continue recomposing the message.
         Message::data[Message::index++] = inByte;
         
@@ -325,7 +325,7 @@ void SPI::parse(const byte inByte)
          }
          Serial << endl;
          #endif
-         */		
+         */
         // Complete
         handleMessage();
         
@@ -352,7 +352,7 @@ void SPI::handleMessage()
     const byte message_type = Message::data[0] & 0x3F;      // Mask: 00111111
     
     switch (message_type) {
-        
+            
         case trigger:
             Gate::handleTrigger();
             break;
@@ -364,15 +364,15 @@ void SPI::handleMessage()
         case gateOff:
             Gate::handleGateOff();
             break;
-
+            
 #if COMPFLAG_ENV_A || COMPFLAG_ENV_B
             
         case setAttack:
         {
             
             const uint32_t data = ((uint32_t)Message::data[1] << 14) 
-                                | ((uint32_t)Message::data[2] << 7) 
-                                |  (uint32_t)Message::data[3];
+            | ((uint32_t)Message::data[2] << 7) 
+            |  (uint32_t)Message::data[3];
             
 #if COMPFLAG_ENV_A
             
@@ -395,8 +395,8 @@ void SPI::handleMessage()
         {
             
             const uint32_t data = ((uint32_t)Message::data[1] << 14) 
-                                | ((uint32_t)Message::data[2] << 7) 
-                                |  (uint32_t)Message::data[3];
+            | ((uint32_t)Message::data[2] << 7) 
+            |  (uint32_t)Message::data[3];
             
 #if COMPFLAG_ENV_A
             
@@ -416,7 +416,7 @@ void SPI::handleMessage()
             
         case setSustain:
         {
- 
+            
             const uint16_t data = ((uint16_t)Message::data[1] << 7) | Message::data[2];
             
 #if COMPFLAG_ENV_A
@@ -439,8 +439,8 @@ void SPI::handleMessage()
         {
             
             const uint32_t data = ((uint32_t)Message::data[1] << 14) 
-                                | ((uint32_t)Message::data[2] << 7) 
-                                |  (uint32_t)Message::data[3];
+            | ((uint32_t)Message::data[2] << 7) 
+            |  (uint32_t)Message::data[3];
             
 #if COMPFLAG_ENV_A
             
@@ -457,7 +457,7 @@ void SPI::handleMessage()
 #endif
         }
             break;
-        
+            
             
         case setPolarityPositive:
         {
@@ -547,7 +547,7 @@ byte SPI::getNumDataBytes(byte inMessageType)
         case setRelease:
             return 3;       // 21 bits resolution
             break;
-        
+            
         case setSustain:
             return 2;       // 14 bit resolution
             break;
@@ -563,11 +563,11 @@ byte SPI::getNumDataBytes(byte inMessageType)
         case togglePolarity:
             return 0;
             break;
-    
+            
         case setShape:
             return 1;
             break;
-        
+            
         case Invalid:
         default:
             fassertfalse;
@@ -582,27 +582,27 @@ byte SPI::getNumDataBytes(byte inMessageType)
 // Interrupt routine definition (chip-specific)
 
 ISR(SPI_DATA_VECT) 
-{	
-	/*
+{
+    /*
      #if DEBUG_SERIAL
      Serial << "Received byte 0x";
      Serial.printNumber(SPI_DATA_REG,16);
      Serial << endl;
      #endif
      */
-	
+    
 #if SPI_USE_BUFFER
-	
-	SPI::add_byte_to_buffer(SPI_DATA_REG);
-	
+    
+    SPI::add_byte_to_buffer(SPI_DATA_REG);
+    
 #else
-	
-	//sei(); // ?
-	
-	SPI::parse(SPI_DATA_REG);
-	
+    
+    //sei(); // ?
+    
+    SPI::parse(SPI_DATA_REG);
+    
 #endif
-	
+    
 }
 
 
@@ -610,33 +610,33 @@ ISR(SPI_DATA_VECT)
 
 ISR(SPI_SS_VECT)
 {
-	
-	// The SS pin has been toggled.
-	// Read its new state.
-	
-	const bool ss_state = SPI_SS_READ & (1 << SPI_SS);
-	
-	if (ss_state == true) {
+    
+    // The SS pin has been toggled.
+    // Read its new state.
+    
+    const bool ss_state = SPI_SS_READ & (1 << SPI_SS);
+    
+    if (ss_state == true) {
 #if DEBUG
-		DEBUG_CHAR('1');
-#endif		
-		// High level: Chip unselected.
-		// Put SPI to sleep.
-		SPI_PORT_DDR &= ~(1 << SPI_MISO);	// MISO: Input (tri-state)
-		
-		USICR &= ~(1<<USIWM0);				// Disable SPI
-	}
-	else {
+        DEBUG_CHAR('1');
+#endif
+        // High level: Chip unselected.
+        // Put SPI to sleep.
+        SPI_PORT_DDR &= ~(1 << SPI_MISO);   // MISO: Input (tri-state)
+        
+        USICR &= ~(1<<USIWM0);              // Disable SPI
+    }
+    else {
 #if DEBUG
-		DEBUG_CHAR('0');
-#endif	
-		// Low level: chip selected.
-		SPI_PORT_DDR |=  (1 << SPI_MISO);	// MISO: Output
-		
-		USICR |= (1<<USIWM0);				// Enable SPI
-		
-	}
-	
+        DEBUG_CHAR('0');
+#endif
+        // Low level: chip selected.
+        SPI_PORT_DDR |=  (1 << SPI_MISO);   // MISO: Output
+        
+        USICR |= (1<<USIWM0);               // Enable SPI
+        
+    }
+    
 }
 
 #endif // ATtiny target

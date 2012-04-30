@@ -55,7 +55,7 @@ EnvelopeGenerator::EnvelopeGenerator()
     , mShape(Linear)
     , mEnvelopeLevel(0)
 {
-	
+    
 }
 
 

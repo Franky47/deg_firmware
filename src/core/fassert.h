@@ -34,11 +34,11 @@
 
 #define log_assertion \
 { \
-	Serial.print("Assertion failure in "); \
-	Serial.print(__FILE__); \
-	Serial.print(", line "); \
-	Serial.print(__LINE__); \
-	Serial.print("\n"); \
+    Serial.print("Assertion failure in "); \
+    Serial.print(__FILE__); \
+    Serial.print(", line "); \
+    Serial.print(__LINE__); \
+    Serial.print("\n"); \
 }
 
 #else
@@ -53,45 +53,45 @@
 uint8_t tmp=0; \
 \
 asm volatile("sbiw    %0, 0x01 \n\t" \
-			 "ldi %1, 0xFF \n\t" \
-			 "cpi %A0, 0xFF \n\t" \
-			 "cpc %B0, %1 \n\t" \
-			 "brne .-10 \n\t" \
-			 : "+r" (delay), "+a" (tmp) \
-			 : "0" (delay) \
-			 ); \
+             "ldi %1, 0xFF \n\t" \
+             "cpi %A0, 0xFF \n\t" \
+             "cpc %B0, %1 \n\t" \
+             "brne .-10 \n\t" \
+             : "+r" (delay), "+a" (tmp) \
+             : "0" (delay) \
+             ); \
 }
 
 #define DEBUG_CHAR(c) \
 { \
-	byte old_sreg = SREG; \
-	cli(); \
-	uint16_t delay = 54; \
-	for (byte mask=0x01;mask;mask<<=1) { \
-		\
-		if (c & mask) { \
-			DEBUG_PORT |=  (1<<DEBUG_PIN); \
-		} \
-		else { \
-			DEBUG_PORT &= ~(1<<DEBUG_PIN); \
-		} \
-		tuned_delay(delay)\
-	} \
-	DEBUG_PORT |= (1<<DEBUG_PIN); \
-	\
-	SREG = old_sreg;\
+    byte old_sreg = SREG; \
+    cli(); \
+    uint16_t delay = 54; \
+    for (byte mask=0x01;mask;mask<<=1) { \
+        \
+        if (c & mask) { \
+            DEBUG_PORT |=  (1<<DEBUG_PIN); \
+        } \
+        else { \
+            DEBUG_PORT &= ~(1<<DEBUG_PIN); \
+        } \
+        tuned_delay(delay)\
+    } \
+    DEBUG_PORT |= (1<<DEBUG_PIN); \
+    \
+    SREG = old_sreg;\
 }
 
 #define log_assertion \
 { \
-	cli();\
-	const char line[6] = TOSTRING(__LINE__);\
-	for (byte i=0;i<6;i++) { \
-		\
-		if (line[i] == 0) break; /*End of data*/ \
-		\
-		DEBUG_CHAR(line[i]);\
-	} \
+    cli();\
+    const char line[6] = TOSTRING(__LINE__);\
+    for (byte i=0;i<6;i++) { \
+        \
+        if (line[i] == 0) break; /*End of data*/ \
+        \
+        DEBUG_CHAR(line[i]);\
+    } \
 }
 
 #endif // DEBUG_SERIAL

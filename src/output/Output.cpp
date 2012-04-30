@@ -33,34 +33,31 @@
 void Output::configure()
 {
     
-    // Set pins as output
-    
 #if COMPFLAG_ENV_A
     
-    ENV_A_DDR |= (1 << ENV_A_PIN);
+    ENV_A_DDR |= (1 << ENV_A_PIN);          // Set pin as output
+    
+    TIMSK1 |= (1 << OCIE1A);                // Enable point A interrupt
+    
+    OCR1A = 0x0000;                         // Reset envelope value to zero
     
 #endif
     
 #if COMPFLAG_ENV_B
     
-    ENV_B_DDR |= (1 << ENV_B_PIN);
+    ENV_B_DDR |= (1 << ENV_B_PIN);          // Set pin as output
+    
+    TIMSK1 |= (1 << OCIE1B);                // Enable point B interrupt
+    
+    OCR1B = 0x0000;                         // Reset envelope value to zero
     
 #endif
     
+	// Timer settings
     
-    
-    
-	OCR1A = 0xFFFF;							// Reset counter
-	OCR1B = 0x8000;							// and half point
+	TCCR1A = 0x00;                          // Normal mode, no PWM, no CTC
+	TCCR1B = 0x00;                          // (PWM is handled internally)
 	
-	TIMSK1 = (1 << OCIE1B) | (1 << OCIE1A);	// Enable interrupts for A and B
-	
-	TCCR1A = 0x00;							// Normal mode, CTC on A
-	TCCR1B = (1 << WGM12);					// CTC on A, clock stopped
-	
-	
-	
-    
 }
 
 
@@ -76,7 +73,7 @@ void Output::handleEnvA()
     
 #if COMPFLAG_ENV_A
     
-    ENV_A_READ |= (1 << ENV_A_PIN);
+    ENV_A_READ |= (1 << ENV_A_PIN); // Writing logical 1 to PIN register toggles output.
     
 #endif // COMPFLAG_ENV_A
     
@@ -91,7 +88,7 @@ void Output::handleEnvB()
     
 #if COMPFLAG_ENV_B
     
-    ENV_B_READ |= (1 << ENV_B_PIN);
+    ENV_B_READ |= (1 << ENV_B_PIN); // Writing logical 1 to PIN register toggles output.
     
 #endif // COMPFLAG_ENV_B
     

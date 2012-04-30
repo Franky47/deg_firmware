@@ -33,6 +33,19 @@ extern EnvelopeGenerator gEnvA;
 extern EnvelopeGenerator gEnvB;
 
 
+extern "C" {
+
+    __extension__ typedef int __guard __attribute__((mode (__DI__))); 
+    
+    int __cxa_guard_acquire(__guard *); 
+    
+    void __cxa_guard_release(__guard *); 
+    
+    void __cxa_guard_abort(__guard *); 
+    
+    void __cxa_pure_virtual();
+    
+};
 
 
 #endif // GLOBS_H_

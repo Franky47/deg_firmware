@@ -24,6 +24,7 @@
 
 #include "Globs.h"
 #include "fassert.h"
+#include "Types.h"
 
 EnvelopeGenerator gEnvA;
 EnvelopeGenerator gEnvB;
@@ -36,21 +37,33 @@ EnvelopeGenerator gEnvB;
  */
 extern "C" {
     
+    int __cxa_guard_acquire(__guard *g)
+    {
+        
+        return !*(char *)(g);
+    
+    }; 
+    
+    
+    void __cxa_guard_release(__guard *g) 
+    {
+        
+        *(char *)g = 1;
+    
+    }; 
+    
+    
+    void __cxa_guard_abort (__guard *)
+    {
+    
+    }; 
+    
+    
     void __cxa_pure_virtual() 
     { 
         
         fassertfalse;
         while (1);
-        
-    }
-    
-    void __cxa_guard_acquire() 
-    {  
-        
-    }
-    
-    void __cxa_guard_release() 
-    { 
         
     }
     

@@ -148,7 +148,7 @@ void EnvelopeGenerator::setDecay(uint32_t inValue)
 }
 
 
-void EnvelopeGenerator::setSustain(uint32_t inValue)
+void EnvelopeGenerator::setSustain(uint16_t inValue)
 {
     
     mSustainLevel = inValue;

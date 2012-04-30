@@ -73,7 +73,7 @@ public:
     
     void setDecay(uint32_t inValue);
     
-    void setSustain(uint32_t inValue);
+    void setSustain(uint16_t inValue);
     
     void setRelease(uint32_t inValue);
     

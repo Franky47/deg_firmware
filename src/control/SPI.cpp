@@ -49,6 +49,9 @@
 #endif
 
 
+/*==============================================================================
+ Pin Mapping and Interrupt Vector definitions
+ ==============================================================================*/
 
 #if defined (__AVR_ATmega644P__)
 
@@ -81,21 +84,30 @@
 
 
 
-// Variables
+/*==============================================================================
+ Variables
+ ==============================================================================*/
 
+namespace SPI {
+    
 #if SPI_USE_BUFFER
-
-byte SPI::buffer[SPI_BUFFER_SIZE] = { 0x00 };
-byte* SPI::write_ptr = buffer;
-byte* SPI::read_ptr  = buffer;
-
+    
+    byte  buffer[SPI_BUFFER_SIZE] = { 0x00 };
+    byte* write_ptr = buffer;
+    byte* read_ptr  = buffer;
+    
 #endif
-
-byte SPI::Message::data[SPI_MAX_MSG_SIZE] = { 0x00 };
-byte SPI::Message::index  = 0;
-byte SPI::Message::length = 0;
-byte SPI::Message::running_status = SPI::Invalid;
-
+    
+    namespace Message {
+        
+        byte data[SPI_MAX_MSG_SIZE] = { 0x00 };
+        byte index  = 0;
+        byte length = 0;
+        byte running_status = Invalid;
+        
+    };
+    
+}; // namespace SPI
 
 
 void SPI::configure()

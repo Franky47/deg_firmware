@@ -110,6 +110,11 @@ namespace SPI {
 }; // namespace SPI
 
 
+
+/*==============================================================================
+ Initialisation
+ ==============================================================================*/
+
 void SPI::configure()
 {
     
@@ -172,6 +177,10 @@ void SPI::configure()
     
 }
 
+
+/*==============================================================================
+ Message Reception
+ ==============================================================================*/
 
 /*! \brief Launch the parser on the incoming buffer.
  
@@ -591,8 +600,9 @@ byte SPI::getNumDataBytes(byte inMessageType)
 }
 
 
-// ---------------------------------------------
-// Interrupt routine definition (chip-specific)
+/*==============================================================================
+ Interrupt routine definition (chip-specific)
+ ==============================================================================*/
 
 ISR(SPI_DATA_VECT) 
 {
@@ -653,7 +663,6 @@ ISR(SPI_SS_VECT)
 }
 
 #endif // ATtiny target
-
 
 #endif // COMPFLAG_SPI
 

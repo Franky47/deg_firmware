@@ -121,14 +121,9 @@ void setup()
     // Initialise globs
     
     
-    
-    
-    // Launch main timer
-    TCCR1B |= 0x01;
-    
 #if DEBUG_SERIAL
     Serial.begin(38400);
-    Serial << "MCO Ready" << endl; 
+    Serial << "DEG Ready" << endl; 
 #endif
     
 }

@@ -53,11 +53,11 @@ void Output::configure()
     
 #endif
     
-	// Timer settings
+    // Timer settings
     
-	TCCR1A = 0x00;                          // Normal mode, no PWM, no CTC
-	TCCR1B = 0x00;                          // (PWM is handled internally)
-	
+    TCCR1A = 0x00;                          // Normal mode, no PWM, no CTC
+    TCCR1B = 0x00;                          // (PWM is handled internally)
+    
 }
 
 

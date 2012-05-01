@@ -24,15 +24,15 @@
 #include "Runtime.h"
 
 int main() {
-	
-	setup();
-	
-	for (;;) {
-		
-		loop();
-		
-	}
-	
-	return 0;
-	
+    
+    setup();
+    
+    for (;;) {
+        
+        loop();
+        
+    }
+    
+    return 0;
+    
 }

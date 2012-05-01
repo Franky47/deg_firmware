@@ -52,7 +52,7 @@
  3  XTAL2
  4  Reset
  5  Gate        (PB2)   -> INT0
- 6  Available   (PA7)	-> OC0B
+ 6  Available   (PA7)   -> OC0B
  7  SPI MOSI
  8  SPI MISO
  9  SPI SCK
@@ -78,9 +78,9 @@
 #define GATE_DDR        DDRB
 #define GATE_PIN        DDB2
 
-#define DEBUG_PORT		PORTA
-#define DEBUG_DDR		DDRA
-#define DEBUG_PIN		DDA2
+#define DEBUG_PORT      PORTA
+#define DEBUG_DDR       DDRA
+#define DEBUG_PIN       DDA2
 
 #else
 

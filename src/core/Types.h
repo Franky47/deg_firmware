@@ -28,19 +28,17 @@
 #ifdef __cplusplus
 extern "C"{
 #endif
-
-typedef uint8_t byte;
-//typedef int8_t sbyte;	
-//typedef uint16_t word;
-	
-typedef void (*voidFuncPtr)(void);
-typedef void (*intFuncPtr)(int);
-	
-	
+    
+    typedef uint8_t byte;
+    
+    typedef void (*voidFuncPtr)(void);
+    typedef void (*intFuncPtr)(int);
+    
+    
 #ifdef __cplusplus
 } // extern "C"
 #endif
-	
-	
+
+
 #endif //_TYPES_H_
 

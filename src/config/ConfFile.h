@@ -29,17 +29,16 @@
 #define COMPFLAG_ENV_A          1   // Enable envelope A.
 #define COMPFLAG_ENV_B          1   // Enable envelope B.
 #define COMPFLAG_TRIGGER        1   // Add setting to allow rettriggering.
-#define COMPFLAG_SHAPING        1   // Add setting to generate non-linear curves (eg: exponential).
-#define COMPFLAG_SLOWFAST       1   // Add setting to divide speed by 10 for A,D,R.
 #define COMPFLAG_POLARITY       1   // Add setting to generate inverted envelope.
-#define	COMPFLAG_DEBUG			0	// Serial line for debug (available only on 644P).
+#define COMPFLAG_SHAPING        1   // Add setting to generate non-linear curves (eg: exponential).
+#define COMPFLAG_DEBUG          0   // Serial line for debug (available only on 644P).
 
 #define COMPFLAG_SYNCHRONOUS    0
 
 #define GATE_POLARITY           1   // 1 means high level = Gate On, 0 means low level = Gate On.
 
-#define SPI_BUFFER_SIZE			16
-#define SPI_MAX_MSG_SIZE		3
+#define SPI_BUFFER_SIZE         16
+#define SPI_MAX_MSG_SIZE        4
 #define SPI_USE_BUFFER          0
 
 

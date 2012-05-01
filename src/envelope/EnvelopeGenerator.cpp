@@ -23,22 +23,16 @@
 #include "EnvelopeGenerator.h"
 #include "fassert.h"
 #include "Clock.h"
+#include "Math.h"
 
-#define slow_min_attack     1000
-#define slow_min_decay      1000
-#define slow_min_release    1000
+// Values in microseconds
+#define min_attack          100
+#define min_decay           100
+#define min_release         100
 
-#define fast_min_attack     100
-#define fast_min_decay      100
-#define fast_min_release    100
-
-#define slow_max_attack     10000000
-#define slow_max_decay      10000000
-#define slow_max_release    10000000
-
-#define fast_max_attack     1000000
-#define fast_max_decay      1000000
-#define fast_max_release    1000000
+#define max_attack          10000000
+#define max_decay           10000000
+#define max_release         10000000
 
 #define min_sustain         0
 #define max_sustain         16383
@@ -53,16 +47,19 @@
 EnvelopeGenerator::EnvelopeGenerator() 
     : Clock()
     , mCurrentState(Idle)
-    , mAttackTime(slow_min_attack)
-    , mDecayTime(slow_min_decay)
+    , mAttackTime(min_attack)
+    , mDecayTime(min_decay)
     , mSustainLevel(max_sustain)
-    , mReleaseTime(slow_min_release)
+    , mReleaseTime(min_release)
+#if COMPFLAG_POLARITY
     , mPositivePolarity(true)
-    , mFast(false)
+#endif
+#if COMPFLAG_SHAPING
     , mShape(Linear)
+#endif
     , mEnvelopeLevel(0)
 {
-	
+    
 }
 
 
@@ -135,7 +132,11 @@ void EnvelopeGenerator::tick()
 void EnvelopeGenerator::setAttack(uint32_t inValue)
 {
     
-    mAttackTime = inValue;
+    mAttackTime = map(inValue,
+                      0x00000000,
+                      0x001FFFFF,
+                      (uint32_t)min_attack,
+                      (uint32_t)max_attack);
     
 }
 
@@ -143,12 +144,16 @@ void EnvelopeGenerator::setAttack(uint32_t inValue)
 void EnvelopeGenerator::setDecay(uint32_t inValue)
 {
     
-    mDecayTime = inValue;
+    mDecayTime = map(inValue,
+                     0x00000000,
+                     0x001FFFFF,
+                     (uint32_t)min_decay,
+                     (uint32_t)max_decay);
     
 }
 
 
-void EnvelopeGenerator::setSustain(uint32_t inValue)
+void EnvelopeGenerator::setSustain(uint16_t inValue)
 {
     
     mSustainLevel = inValue;
@@ -159,7 +164,11 @@ void EnvelopeGenerator::setSustain(uint32_t inValue)
 void EnvelopeGenerator::setRelease(uint32_t inValue)
 {
     
-    mReleaseTime = inValue;
+    mReleaseTime = map(inValue,
+                       0x00000000,
+                       0x001FFFFF,
+                       (uint32_t)min_release,
+                       (uint32_t)max_release);
     
 }
 
@@ -180,19 +189,28 @@ void EnvelopeGenerator::doProcess()
         
     }
     
+    uint32_t current_time = 0;
+    const uint32_t elapsed_time = getElapsedTime(&current_time);
+    
+    uint32_t base_time    = 0;
+    uint16_t target_level = 0;
+    
     if (mCurrentState == Attack) {
         
-        processAttack();
+        base_time    = mAttackTime;
+        target_level = max_sustain;
         
     }
     else if (mCurrentState == Decay) {
         
-        processDecay();
+        base_time    = mDecayTime;
+        target_level = mSustainLevel;
         
     }
     else if (mCurrentState == Release) {
         
-        processRelease();
+        base_time    = mReleaseTime;
+        target_level = 0;
         
     }
     else {
@@ -202,131 +220,65 @@ void EnvelopeGenerator::doProcess()
         
     }
     
-}
-
-
-void EnvelopeGenerator::processAttack()
-{
+    if (current_time >= base_time) {
+        
+        // End of current phase
+        
+        mEnvelopeLevel = target_level;
+        
+        switch (mCurrentState) 
+        {
+            case Attack:
+                mCurrentState = mGateState ? Decay : Release;
+                reset();
+                break;
+                
+            case Decay:
+                mCurrentState = mGateState ? Sustain : Release;
+                reset();
+                break;
+                
+            case Release:
+                mCurrentState = Idle;
+                stop();
+                break;
+                
+            default:
+                fassertfalse;
+                break;
+        }
+        
+        return;
+        
+    }
     
-    const uint32_t remaining_time = mAttackTime - getTime();
+#if COMPFLAG_SHAPING
     
+    // Default shape when shaping is not enabled is linear.
     if (mShape == Linear) {
         
+#endif // COMPFLAG_SHAPING
         
+        const int32_t denominator = base_time - current_time + elapsed_time;
+        const int32_t numerator   = elapsed_time * (target_level - mEnvelopeLevel);
+        
+        mEnvelopeLevel += (numerator / denominator);
+     
+#if COMPFLAG_SHAPING
         
     }
     else if (mShape == Exponential) {
         
-        
-        
-    }
-    else {
-        
-        // \todo: Logarithmic response
-        
-    }
-    
-    if (remaining_time - mSampleTime <= 0) {
-        
-        // End of attack phase
-        
-        if (mGateState == true) {
-            
-            mCurrentState = Decay;
-            
-        }
-        else {
-            
-            // Gate removed before end of attack
-            // Go to release state directly.
-            mCurrentState = Release;
-            
-        }
-        
-        reset();
-        
-    }
-    
-}
-
-
-void EnvelopeGenerator::processDecay()
-{
-    
-    const uint32_t remaining_time = mDecayTime - getTime();
-    
-    if (mShape == Linear) {
-        
-        
-        
-    }
-    else if (mShape == Exponential) {
-        
-        
+        // \todo Add wave generation
         
     }
     else {
         
-        // \todo: Logarithmic response
+        // \todo Add wave generation
         
     }
     
-    if (remaining_time - mSampleTime <= 0) {
-        
-        // End of decay phase
-        
-        if (mGateState == true) {
-            
-            mCurrentState = Sustain;
-            
-            stop();
-            
-        }
-        else {
-            
-            // Gate removed before end of decay
-            // Go to release state directly.
-            mCurrentState = Release;
-            
-            reset();
-            
-        }
-        
-    }
-    
-}
-
-
-void EnvelopeGenerator::processRelease()
-{
-    
-    const uint32_t remaining_time = mReleaseTime - getTime();
-    
-    if (mShape == Linear) {
-        
-        
-        
-    }
-    else if (mShape == Exponential) {
-        
-        
-        
-    }
-    else {
-        
-        // \todo: Logarithmic response
-        
-    }
-    
-    if (remaining_time - mSampleTime <= 0) {
-        
-        // End of release phase
-        
-        mCurrentState = Idle;
-        
-        stop();
-        
-    }
+#endif // COMPFLAG_SHAPING
     
 }
 

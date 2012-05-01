@@ -31,21 +31,21 @@
 
 void Gate::configure()
 {
- 
+    
     GATE_DDR &= ~(1 << GATE_PIN);       // Set as input
     
 #if defined (__AVR_ATmega644P__)
-	
-    EICRA |= (0<<ISC01) | (1<<ISC00);	// Trigger on both edges of Gate
-	
+    
+    EICRA |= (0<<ISC01) | (1<<ISC00);   // Trigger on both edges of Gate
+    
 #elif defined (__AVR_ATtiny44__) || defined (__AVR_ATtiny84__)
-	
-    MCUCR |= (0<<ISC01) | (1<<ISC00);	// Trigger on both edges of Gate
- 	
+    
+    MCUCR |= (0<<ISC01) | (1<<ISC00);   // Trigger on both edges of Gate
+    
 #else
 #error Unsupported target MCU
 #endif
-  
+    
     enable();
     
 }
@@ -57,19 +57,19 @@ void Gate::configure()
 
 void Gate::enable()
 {
-	
+    
 #if defined (__AVR_ATmega644P__)
-	
-	EIMSK |= (1 << INT0);
-	
+    
+    EIMSK |= (1 << INT0);
+    
 #elif defined (__AVR_ATtiny44__) || defined (__AVR_ATtiny84__)
-	
-	GIMSK |= (1 << INT0);
-	
+    
+    GIMSK |= (1 << INT0);
+    
 #else
 #error Unsupported target MCU
 #endif
-	
+    
 }
 
 
@@ -77,35 +77,35 @@ void Gate::disable()
 {
     
 #if defined (__AVR_ATmega644P__)
-	
-	EIMSK &= ~(1 << INT0);
-	
+    
+    EIMSK &= ~(1 << INT0);
+    
 #elif defined (__AVR_ATtiny44__) || defined (__AVR_ATtiny84__)
-	
-	GIMSK &= ~(1 << INT0);
-	
+    
+    GIMSK &= ~(1 << INT0);
+    
 #else
 #error Unsupported target MCU
 #endif
-	
+    
 }
 
 
 void Gate::toggle()
 {
-	
+    
 #if defined (__AVR_ATmega644P__)
-	
-	EIMSK ^= (1 << INT0);
-	
+    
+    EIMSK ^= (1 << INT0);
+    
 #elif defined (__AVR_ATtiny44__) || defined (__AVR_ATtiny84__)
-	
-	GIMSK ^= (1 << INT0);
-	
+    
+    GIMSK ^= (1 << INT0);
+    
 #else
 #error Unsupported target MCU
 #endif
-	
+    
 }
 
 
@@ -152,16 +152,20 @@ void Gate::handleGateOff()
 void Gate::handleTrigger()
 {
     
+#if COMPFLAG_TRIGGER
+    
 #if COMPFLAG_ENV_A
     
     gEnvA.trigger();
     
-#endif
+#endif // COMPFLAG_ENV_A
     
 #if COMPFLAG_ENV_B
     
     gEnvB.trigger();
     
-#endif
+#endif // COMPFLAG_ENV_B
+    
+#endif // COMPFLAG_TRIGGER
     
 }

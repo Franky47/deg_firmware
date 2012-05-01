@@ -119,6 +119,7 @@
 		312ADFFB154DA7750063B802 /* Clock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Clock.h; sourceTree = "<group>"; };
 		312AE004154DA92E0063B802 /* EnvelopeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnvelopeGenerator.h; sourceTree = "<group>"; };
 		312AE005154DA92E0063B802 /* EnvelopeGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnvelopeGenerator.cpp; sourceTree = "<group>"; };
+		312AE290154F26750063B802 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
 		31DD6C0711BA9E3D00FF05DB /* console.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = console.sh; path = ../console.sh; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -163,6 +164,7 @@
 				312ADF73154D860E0063B802 /* main.cpp */,
 				312ADF74154D860E0063B802 /* Runtime.cpp */,
 				312ADF75154D860E0063B802 /* Runtime.h */,
+				312AE290154F26750063B802 /* Math.h */,
 				312ADF76154D860E0063B802 /* Types.h */,
 			);
 			path = core;

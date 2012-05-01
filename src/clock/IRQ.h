@@ -33,15 +33,15 @@
 
 #if defined (__AVR_ATmega644P__)
 
-	#define IRQ_A           TIMER1_COMPA_vect
-	#define IRQ_B           TIMER1_COMPB_vect
+    #define IRQ_A           TIMER1_COMPA_vect
+    #define IRQ_B           TIMER1_COMPB_vect
     #define IRQ_OVF         TIMER1_OVF_vect
 
 
 #elif defined (__AVR_ATtiny44__) || defined (__AVR_ATtiny84__)
 
-	#define IRQ_A           TIM1_COMPA_vect
-	#define IRQ_B           TIM1_COMPB_vect
+    #define IRQ_A           TIM1_COMPA_vect
+    #define IRQ_B           TIM1_COMPB_vect
     #define IRQ_OVF         TIM1_OVF_vect
 
 #else
@@ -51,7 +51,7 @@
 
 #ifdef INT0_vect
 
-	#define IRQ_GATE        INT0_vect		// Universal vector for both chips
+    #define IRQ_GATE        INT0_vect       // Universal vector for both chips
 
 #endif
 
@@ -61,11 +61,11 @@
  ==============================================================================*/
 
 #ifndef IRQ_A
-#error	No valid ISR found for A
+#error No valid ISR found for A
 #endif
 
 #ifndef IRQ_B
-#error	No valid ISR found for B
+#error No valid ISR found for B
 #endif
 
 #ifndef IRQ_OVF

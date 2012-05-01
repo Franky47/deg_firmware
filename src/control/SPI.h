@@ -29,7 +29,7 @@
 #if COMPFLAG_SPI
 
 namespace SPI {
-	
+
     /*==========================================================================
      Message types
      ==========================================================================*/
@@ -68,10 +68,6 @@ namespace SPI {
         setRelease,         // 14 bit data value (range-independant)
         
         // Settings
-        setFastMode,        // Range: 100us to 1s
-        setSlowMode,        // Range: 1ms to 10s
-        toggleFastSlow,
-        
         setShape,           // Exponential or Linear
         
         setPolarityPositive,
@@ -86,54 +82,54 @@ namespace SPI {
      Initialisation
      ==========================================================================*/
     
-	void configure();
-	
+    void configure();
+
     
     /*==========================================================================
      Message reception
      ==========================================================================*/
     
-    void read();	// Poll SPI buffer for incoming data
-	
-	void handleMessage();
-	
-	byte getNumDataBytes(byte inMessageType);
+    void read();    // Poll SPI buffer for incoming data
+
+    void handleMessage();
+
+    byte getNumDataBytes(byte inMessageType);
     
     
-	// Members
+    // Members
 #if SPI_USE_BUFFER
-	
-	void parse_buffer();
-	
-	// Private
-	byte extract_byte_from_buffer();
-	void add_byte_to_buffer(byte inByte);
-	byte available();
-	
-	extern byte buffer[SPI_BUFFER_SIZE];
-	extern byte * read_ptr;
-	extern byte * write_ptr;
-	
-	
+
+    void parse_buffer();
+
+    // Private
+    byte extract_byte_from_buffer();
+    void add_byte_to_buffer(byte inByte);
+    byte available();
+
+    extern byte buffer[SPI_BUFFER_SIZE];
+    extern byte * read_ptr;
+    extern byte * write_ptr;
+
+
 #endif
-	
-	void parse(const byte inByte);
-	
-	
-	/*==========================================================================
+
+    void parse(const byte inByte);
+
+
+    /*==========================================================================
      SPI Message data structure
      ==========================================================================*/
     
-	namespace Message {
-		
-		extern byte data[SPI_MAX_MSG_SIZE];
-		extern byte index;
-		extern byte length;
-		extern byte running_status;
-		
-	};
-	
-	
+    namespace Message {
+        
+        extern byte data[SPI_MAX_MSG_SIZE];
+        extern byte index;
+        extern byte length;
+        extern byte running_status;
+        
+    };
+    
+    
 }; // namespace SPI
 
 #endif // COMPFLAG_SPI

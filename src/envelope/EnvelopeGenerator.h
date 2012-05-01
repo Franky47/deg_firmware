@@ -24,6 +24,7 @@
 #define _FSE_ENVELOPE_GENERATOR_H_
 
 #include "Clock.h"
+#include "ConfFile.h"
 
 
 /*! \class EnvelopeGenerator 
@@ -31,9 +32,11 @@
  */
 class EnvelopeGenerator : public Clock
 {
-
+    
 public:
-	
+    
+#if COMPFLAG_SHAPING
+    
     enum eShape 
     {
         Invalid = 0,
@@ -43,18 +46,19 @@ public:
         eShape_count
     };
     
+#endif
     
-	/*==========================================================================
-	 Construction and Destruction
-	 ==========================================================================*/
-	
-	EnvelopeGenerator();
-	
+    /*==========================================================================
+     Construction and Destruction
+     ==========================================================================*/
     
-	/*==========================================================================
-	 Control
-	 ==========================================================================*/
-	
+    EnvelopeGenerator();
+    
+    
+    /*==========================================================================
+     Control
+     ==========================================================================*/
+    
     void gateOn();
     
     void gateOff();
@@ -66,18 +70,21 @@ public:
     
     
     /*==========================================================================
-	 Settings
-	 ==========================================================================*/
-	
+     Settings
+     ==========================================================================*/
+    
     void setAttack(uint32_t inValue);
     
     void setDecay(uint32_t inValue);
     
-    void setSustain(uint32_t inValue);
+    void setSustain(uint16_t inValue);
     
     void setRelease(uint32_t inValue);
     
-	void setPolarity(bool inPositive)
+    
+#if COMPFLAG_POLARITY
+    
+    void setPolarity(bool inPositive)
     {
         mPositivePolarity = inPositive;
     }
@@ -87,31 +94,29 @@ public:
         mPositivePolarity = !mPositivePolarity;
     }
     
-    void setShape(eShape inShape)
-    {
-        mShape = inShape;
-    }
-    
-    void setFast(bool inFastOperation)
-    {
-        mFast = inFastOperation;
-    }
-    
-    void toggleFast()
-    {
-        mFast = !mFast;
-    }
     
     bool getPolarity() const
     {
         return mPositivePolarity;
     }
     
+#endif // COMPFLAG_POLARITY
+    
+    
+#if COMPFLAG_SHAPING
+    
+    void setShape(eShape inShape)
+    {
+        mShape = inShape;
+    }
+    
+#endif // COMPFLAG_SHAPING
+    
     
     /*==========================================================================
-	 Algorithm
-	 ==========================================================================*/
-	
+     Algorithm
+     ==========================================================================*/
+    
     void doProcess();
     
     uint16_t getOutputLevel() const
@@ -121,13 +126,6 @@ public:
     
     
 private:
-    
-    void processAttack();
-    
-    void processDecay();
-    
-    void processRelease();
-    
     
     enum eState 
     {
@@ -147,11 +145,18 @@ private:
     uint16_t                        mSustainLevel;
     uint32_t                        mReleaseTime;
     
+#if COMPFLAG_POLARITY
+    
     bool                            mPositivePolarity;
     
-    bool                            mFast;
+#endif
+    
+    
+#if COMPFLAG_SHAPING
     
     eShape                          mShape;
+    
+#endif
     
     uint16_t                        mEnvelopeLevel;
     

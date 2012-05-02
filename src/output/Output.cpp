@@ -58,6 +58,8 @@ void Output::configure()
     TCCR1A = 0x00;                          // Normal mode, no PWM, no CTC
     TCCR1B = 0x00;                          // (PWM is handled internally)
     
+    TIMSK1 |= (1 << TOIE1);                 // Register overflow interrupt
+    
 }
 
 

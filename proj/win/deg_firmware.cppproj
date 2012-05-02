@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>5.1</ProjectVersion>
+    <ToolchainName>com.Atmel.AVRGCC8</ToolchainName>
+    <ProjectGuid>{62ffd0a6-7ada-4550-886b-f5ff167893fe}</ProjectGuid>
+    <avrdevice>ATtiny84</avrdevice>
+    <avrdeviceseries>none</avrdeviceseries>
+    <OutputType>Executable</OutputType>
+    <Language>CPP</Language>
+    <OutputFileName>$(MSBuildProjectName)</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
+    <AssemblyName>deg_firmware</AssemblyName>
+    <Name>deg_firmware</Name>
+    <RootNamespace>deg_firmware</RootNamespace>
+    <ToolchainFlavour>Native</ToolchainFlavour>
+    <AsfVersion>2.11.1</AsfVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <ToolchainSettings>
+      <AvrGccCpp>
+  <avrgcccpp.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>F_CPU=16000000</Value>
+    </ListValues>
+  </avrgcccpp.compiler.symbols.DefSymbols>
+  <avrgcccpp.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>../../../src/config</Value>
+      <Value>../../../src/core</Value>
+      <Value>../../../src/control</Value>
+      <Value>../../../src/clock</Value>
+      <Value>../../../src/envelope</Value>
+      <Value>../../../src/output</Value>
+    </ListValues>
+  </avrgcccpp.compiler.directories.IncludePaths>
+</AvrGccCpp>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <ToolchainSettings>
+      <AvrGccCpp>
+  <avrgcccpp.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>F_CPU=16000000</Value>
+    </ListValues>
+  </avrgcccpp.compiler.symbols.DefSymbols>
+  <avrgcccpp.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>../../../src/config</Value>
+      <Value>../../../src/core</Value>
+      <Value>../../../src/control</Value>
+      <Value>../../../src/clock</Value>
+      <Value>../../../src/envelope</Value>
+      <Value>../../../src/output</Value>
+    </ListValues>
+  </avrgcccpp.compiler.directories.IncludePaths>
+</AvrGccCpp>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\src\clock\Clock.cpp">
+      <SubType>compile</SubType>
+      <Link>Clock.cpp</Link>
+    </Compile>
+    <Compile Include="..\..\src\clock\Clock.h">
+      <SubType>compile</SubType>
+      <Link>Clock.h</Link>
+    </Compile>
+    <Compile Include="..\..\src\clock\IRQ.cpp">
+      <SubType>compile</SubType>
+      <Link>IRQ.cpp</Link>
+    </Compile>
+    <Compile Include="..\..\src\clock\IRQ.h">
+      <SubType>compile</SubType>
+      <Link>IRQ.h</Link>
+    </Compile>
+    <Compile Include="..\..\src\config\ConfFile.h">
+      <SubType>compile</SubType>
+      <Link>ConfFile.h</Link>
+    </Compile>
+    <Compile Include="..\..\src\config\PinMapping.h">
+      <SubType>compile</SubType>
+      <Link>PinMapping.h</Link>
+    </Compile>
+    <Compile Include="..\..\src\control\Gate.cpp">
+      <SubType>compile</SubType>
+      <Link>Gate.cpp</Link>
+    </Compile>
+    <Compile Include="..\..\src\control\Gate.h">
+      <SubType>compile</SubType>
+      <Link>Gate.h</Link>
+    </Compile>
+    <Compile Include="..\..\src\control\SPI.cpp">
+      <SubType>compile</SubType>
+      <Link>SPI.cpp</Link>
+    </Compile>
+    <Compile Include="..\..\src\control\SPI.h">
+      <SubType>compile</SubType>
+      <Link>SPI.h</Link>
+    </Compile>
+    <Compile Include="..\..\src\core\fassert.h">
+      <SubType>compile</SubType>
+      <Link>fassert.h</Link>
+    </Compile>
+    <Compile Include="..\..\src\core\Globs.cpp">
+      <SubType>compile</SubType>
+      <Link>Globs.cpp</Link>
+    </Compile>
+    <Compile Include="..\..\src\core\Globs.h">
+      <SubType>compile</SubType>
+      <Link>Globs.h</Link>
+    </Compile>
+    <Compile Include="..\..\src\core\main.cpp">
+      <SubType>compile</SubType>
+      <Link>main.cpp</Link>
+    </Compile>
+    <Compile Include="..\..\src\core\Math.h">
+      <SubType>compile</SubType>
+      <Link>Math.h</Link>
+    </Compile>
+    <Compile Include="..\..\src\core\Runtime.cpp">
+      <SubType>compile</SubType>
+      <Link>Runtime.cpp</Link>
+    </Compile>
+    <Compile Include="..\..\src\core\Runtime.h">
+      <SubType>compile</SubType>
+      <Link>Runtime.h</Link>
+    </Compile>
+    <Compile Include="..\..\src\core\Types.h">
+      <SubType>compile</SubType>
+      <Link>Types.h</Link>
+    </Compile>
+    <Compile Include="..\..\src\envelope\EnvelopeGenerator.cpp">
+      <SubType>compile</SubType>
+      <Link>EnvelopeGenerator.cpp</Link>
+    </Compile>
+    <Compile Include="..\..\src\envelope\EnvelopeGenerator.h">
+      <SubType>compile</SubType>
+      <Link>EnvelopeGenerator.h</Link>
+    </Compile>
+    <Compile Include="..\..\src\output\Output.cpp">
+      <SubType>compile</SubType>
+      <Link>Output.cpp</Link>
+    </Compile>
+    <Compile Include="..\..\src\output\Output.h">
+      <SubType>compile</SubType>
+      <Link>Output.h</Link>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
+</Project>

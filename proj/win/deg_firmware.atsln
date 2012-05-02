@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# AvrStudio Solution File, Format Version 11.00
+Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "deg_firmware", "deg_firmware.cppproj", "{62FFD0A6-7ADA-4550-886B-F5FF167893FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62FFD0A6-7ADA-4550-886B-F5FF167893FE}.Debug|AVR.ActiveCfg = Debug|AVR
+		{62FFD0A6-7ADA-4550-886B-F5FF167893FE}.Debug|AVR.Build.0 = Debug|AVR
+		{62FFD0A6-7ADA-4550-886B-F5FF167893FE}.Release|AVR.ActiveCfg = Release|AVR
+		{62FFD0A6-7ADA-4550-886B-F5FF167893FE}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

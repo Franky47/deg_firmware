@@ -66,7 +66,7 @@
 # Name of target controller 
 # (e.g. 'at90s8515', see the available avr-gcc mmcu 
 # options for possible values)
-MCU=atmega644p
+MCU=attiny84
 
 # CPU Speed
 F_CPU=16000000
@@ -77,7 +77,7 @@ F_CPU=16000000
 # accept the same MCU name as avr-gcc (for example
 # for ATmega8s, avr-gcc expects 'atmega8' and 
 # avrdude requires 'm8')
-PROGRAMMER_MCU=m644p
+PROGRAMMER_MCU=t84
 
 # Name of our project
 # (use a single word, e.g. 'myproject')
@@ -93,18 +93,23 @@ PROJECTNAME=DEG
 PROJ_ROOT=../../
 
 BUILD_DIR= $(PROJ_ROOT)build/
-OBJ_DIR= $(BUILD_DIR)obj/
-LST_DIR= $(BUILD_DIR)lst/
-HEX_DIR= $(BUILD_DIR)hex/
-ELF_DIR= $(BUILD_DIR)elf/
+OBJ_DIR= $(BUILD_DIR)Intermediates/obj/
+LST_DIR= $(BUILD_DIR)Intermediates/lst/
+HEX_DIR= $(BUILD_DIR)Products/hex/
+ELF_DIR= $(BUILD_DIR)Intermediates/elf/
 
 # Automatic list all dirs containing source files (.asm .s .S .c .cc .cpp .C .h .hpp .H)
 
-CORE_DIR= ../../../../cores/avr_core/ 	# Place relative path to avr_core
-LIBS_DIR= $(PROJ_ROOT)libs/
+CORE_DIR= $(PROJ_ROOT)src/core/ # Final version (light core)
+LIBS_DIR= $(PROJ_ROOT)src/config $(PROJ_ROOT)src/envelope $(PROJ_ROOT)src/clock $(PROJ_ROOT)src/output $(PROJ_ROOT)src/control
 
 # List source directories
-SRC_DIR=  $(PROJ_ROOT)src/ $(CORE_DIR) $(LIBS_DIR)
+SRC_DIR=$(PROJ_ROOT)src/core/ \
+	$(PROJ_ROOT)src/config/ \
+	$(PROJ_ROOT)src/envelope/ \
+	$(PROJ_ROOT)src/clock/ \
+	$(PROJ_ROOT)src/output/ \
+	$(PROJ_ROOT)src/control/
 
 
 # Source files
@@ -145,7 +150,7 @@ OPTLEVEL=3
 # one of the valid "-c PROGRAMMER-ID" values 
 # described in the avrdude info page.
 # 
-AVRDUDE_PROGRAMMERID=stk500
+AVRDUDE_PROGRAMMERID=usbtiny
 
 # port--serial or parallel port to which your 
 # hardware programmer is attached
@@ -273,10 +278,11 @@ hex: $(HEXTARGET)
 
 
 upload: hex
-	$(AVRDUDE) -c $(AVRDUDE_PROGRAMMERID)   \
-	 -p $(PROGRAMMER_MCU) -P $(AVRDUDE_PORT) -e        \
-	-b $(AVRDUDE_BAUD)\
-	 -U flash:w:$(HEXTARGET)
+	$(AVRDUDE) \
+	-c $(AVRDUDE_PROGRAMMERID) \
+	-e \
+	-p $(PROGRAMMER_MCU) \
+	-U flash:w:$(HEXTARGET)
 
 install: upload
 

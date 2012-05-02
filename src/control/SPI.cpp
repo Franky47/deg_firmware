@@ -544,7 +544,7 @@ void SPI::handleMessage()
             
 #endif // COMPFLAG_ENV_A || COMPFLAG_ENV_B
             
-        case Invalid:
+        //case Invalid:
         default:
             // Parse error
             fassertfalse;
@@ -590,7 +590,7 @@ byte SPI::getNumDataBytes(byte inMessageType)
             return 1;
             break;
             
-        case Invalid:
+        //case Invalid:
         default:
             fassertfalse;
             return 0;

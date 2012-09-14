@@ -272,7 +272,7 @@ disasm: $(DUMPTARGET) stats
 
 stats: $(ELFTARGET)
 	$(OBJDUMP) -h $(ELFTARGET)
-	$(SIZE) $(ELFTARGET) 
+	$(SIZE) -C --mcu=$(MCU) $(ELFTARGET) 
 
 hex: $(HEXTARGET)
 
